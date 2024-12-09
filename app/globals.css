@@ -2,15 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@font-face {
+  font-family: "QLight";
+
+  src: url("./fonts/Poppins-Light.ttf");
+}
+@font-face {
+  font-family: "QRegular";
+
+  src: url("./fonts/Poppins-Regular.ttf");
+}
+@font-face {
+  font-family: "QMedium";
+
+  src: url("./fonts/Poppins-Medium.ttf");
+}
+@font-face {
+  font-family: "QSemi";
+
+  src: url("./fonts/Poppins-SemiBold.ttf");
+}
+@font-face {
+  font-family: "QBold";
+
+  src: url("./fonts/Poppins-Bold.ttf");
+}
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+ 
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  
+   
   }
 }
 
@@ -18,4 +52,34 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+.dropdown {
+  cursor: pointer;
+  position: relative;
+  z-index: 10;
+}
+
+.dropdown-menu {
+  background-color: #fff;
+  padding: 12px 30px;
+  position: absolute;
+  
+  opacity: 0;
+  top: 20px;
+  visibility: hidden;
+  transition: .03s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 200px;
+  text-align: center;
+
+ 
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+  animation: slideleft .2s cubic-bezier(0.455, 0.03, 0.515, 0.955) ;
+  transition:.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+  
 }

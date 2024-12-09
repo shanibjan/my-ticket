@@ -12,6 +12,14 @@ module.exports = {
         foreground: "var(--foreground)",
       },
     },
+    fontFamily: {
+     
+      QRegular: ["QRegular"],
+      QBold: ["QBold"],
+      QMedium: ["QMedium"],
+      QLight: ["QLight"],
+      QSemi:["QSemi"]
+    },
   },
   plugins: [],
 };
