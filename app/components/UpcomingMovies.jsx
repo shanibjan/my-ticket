@@ -11,13 +11,11 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const UpcomingMovies = ({}) => {
   const [categoryClick, setCategoryClick] = useState("All");
-  console.log(categoryClick);
+  
   
   const [isHidden, setIsHidden] = useState(false);
 
- console.log(isHidden);
  
-  console.log(categoryClick);
 
   const movies = [
     { src: bp, name: "Beeshma Parvam", lang: "Malayalam" },
@@ -39,7 +37,7 @@ const UpcomingMovies = ({}) => {
   const filteredMovies = movies.filter((filter) => {
     return filter.lang === categoryClick;
   });
-  console.log(filteredMovies);
+  
   return (
     <div>
       <div className="mx-[7%]  max-[530px]:mx-[3%] my-[4%]">

@@ -83,3 +83,24 @@ body {
   transition:.4s cubic-bezier(0.075, 0.82, 0.165, 1);
   
 }
+.overlay {
+  position: fixed; /* Stays in place while scrolling */
+  top: 0;
+  right: 0;
+  
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
+  z-index: 999; /* Ensures it stays above other content */
+   /* Vertically center content */
+}
+
+/* Content inside the overlay */
+.overlay-content {
+ 
+  
+  
+  
+ 
+  width: 100%;
+}

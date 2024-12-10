@@ -13,9 +13,7 @@ const Movies = ({}) => {
   const [categoryClick, setCategoryClick] = useState("All");
   const [isHidden, setIsHidden] = useState(false);
 
- console.log(isHidden);
  
-  console.log(categoryClick);
 
   const movies = [
     { src: bp, name: "Beeshma Parvam", lang: "Malayalam" },
@@ -37,7 +35,7 @@ const Movies = ({}) => {
   const filteredMovies = movies.filter((filter) => {
     return filter.lang === categoryClick;
   });
-  console.log(filteredMovies);
+  
   return (
     <div>
       <div className="mx-[7%]  max-[530px]:mx-[3%] my-[4%]">
