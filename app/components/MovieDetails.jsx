@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import t from "../images/Turbo.jpg";
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 const MoviesDetails = ({ }) => {
   const query=useSearchParams()
   const name=query.get("id")
