@@ -8,7 +8,22 @@ import Signup from "./SignUp";
 const NavBar = ({}) => {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+const[user,setUser]=useState()
+  
+ console.log(user);
+ 
+  const fetchUser=async()=>{
+    try {
+      setUser(JSON.parse(localStorage.getItem("my-ticket-user")))
+    } catch (error) {
+      
+    }
+  }
 
+  useEffect(()=>{
+fetchUser()
+  },[isLogin])
+  
   const handleDataFromLogin = (data, goToSignup) => {
     console.log(data);
 
@@ -45,16 +60,18 @@ const NavBar = ({}) => {
         </div>
         <div className="flex justify-between w-[20%] max-[1100px]:w-[30%] max-[715px]:w-[40%] max-[415px]:w-[50%] font-QSemi cursor-pointer  ">
           <h1
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => {user ?null:setIsLogin(!isLogin)}}
             className=" flex items-center text-[#417AB2] max-[715px]:text-[13px] border-2 border-[#417AB2] rounded-[20px] px-[10%] py-[2%]"
-          >
-            Login
+          >{user?"Hi, "+user.name:"Login"}
+           
           </h1>
           <h1
-            onClick={() => setIsSignup(!isSignup)}
+            onClick={() =>{ user? localStorage.removeItem("my-ticket-user") :
+              setIsSignup(!isSignup)
+              fetchUser()} }
             className="flex items-center text-[#CE567F] max-[715px]:text-[13px] border-2 border-[#CE567F] rounded-[20px] px-[10%] py-[2%]"
           >
-            Signup
+           {user?"Logout":"Signup"}
           </h1>
         </div>
       </div>

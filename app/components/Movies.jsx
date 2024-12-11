@@ -8,11 +8,12 @@ import p from "../images/push.jpg";
 import mb from "../images/mb.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/navigation";
 
 const Movies = ({}) => {
   const [categoryClick, setCategoryClick] = useState("All");
   const [isHidden, setIsHidden] = useState(false);
-
+const router=useRouter()
  
 
   const movies = [
@@ -35,6 +36,11 @@ const Movies = ({}) => {
   const filteredMovies = movies.filter((filter) => {
     return filter.lang === categoryClick;
   });
+
+  const navToMoviePage=(movie)=>{
+      router.push(`/movie?name=${movie.name}&id=6347345394693846`)
+      
+  }
   
   return (
     <div>
@@ -79,7 +85,7 @@ const Movies = ({}) => {
         <div className="flex justify-start gap-x-8 max-[500px]:gap-x-[10px] overflow-x-scroll hide-scrollbar w-full flex-nowrap py-[2%]">
           {categoryClick === "All"
             ? movies.map((movie, index) => (
-                <div key={index} className="flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
+                <div onClick={()=>navToMoviePage(movie)} key={index} className="flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
                   {" "}
                   {/* Set fixed width */}
                   <img

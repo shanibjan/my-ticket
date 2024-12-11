@@ -5,7 +5,10 @@ import UpcomingMovies from "../components/UpcomingMovies";
 import MoviesDetails from "../components/MovieDetails";
 import ShowTime from "../components/ShowTime";
 
+
 const MoviePage = ({}) => {
+  
+  
   return (
     <div>
       <NavBar />

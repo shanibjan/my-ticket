@@ -1,11 +1,16 @@
+"use client"
 import React from 'react';
 import t from "../images/Turbo.jpg";
+import { useParams, useSearchParams } from 'next/navigation';
 const MoviesDetails = ({ }) => {
+  const query=useSearchParams()
+  const name=query.get("id")
+  console.log(name);
   return (
     <div className="pt-[100px] max-[530px]:px-[3%] px-[7%] border-b-[1px] border-b-gray-200 ">
         <div className="flex justify-between py-[5%]">
           <div className="leading-[44px] max-[425px]:leading-[30px] w-[30%] max-[1080px]:w-[45%] max-[780px]:w-[60%] max-[370px]:w-[50%]">
-            <h1 className="font-QBold text-[30px] max-[425px]:text-[20px] max-[425px]:font-QSemi" >Turbo</h1>
+            <h1 className="font-QBold text-[30px] max-[425px]:text-[20px] max-[425px]:font-QSemi" >{name}</h1>
             <div className="flex justify-between font-QRegular w-[50%] max-[425px]:text-[12px] text-gray-500 max-[550px]:w-[70%] max-[370px]:w-full" >
               <h3>U/A </h3>
               <h3>•</h3>
