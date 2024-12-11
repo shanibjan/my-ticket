@@ -1,8 +1,26 @@
 import User from "@/models/userModel";
 import { comparePassword } from "@/helpers/authHelper";
+import Cors from 'cors';
+
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD'], // Allowed methods
+  origin: 'https://my-ticket-coral.vercel.app', // Replace with your deployed frontend URL
+});
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      return resolve(result);
+    });
+  });
+}
 
 export default async function handler(req,res) {
     try {
+      await runMiddleware(req, res, cors);
         const{phone,password}=req.body
         console.log(phone);
         
