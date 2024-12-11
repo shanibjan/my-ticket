@@ -4,7 +4,7 @@ import Cors from 'cors';
 
 const cors = Cors({
   methods: ['POST', 'GET', 'HEAD'], // Allowed methods
-  origin: 'https://my-ticket-coral.vercel.app', // Replace with your deployed frontend URL
+  origin: 'https://my-ticket-b9fg.vercel.app', // Replace with your deployed frontend URL
 });
 
 function runMiddleware(req, res, fn) {
