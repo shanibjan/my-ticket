@@ -48,7 +48,7 @@ const Login = ({onDataSend }) => {
             setIsLogin(false);
           }
         } catch (error) {
-          console.log(error.response.data.message);
+          console.log(error);
           setError(error.response.data.message);
         }
       };

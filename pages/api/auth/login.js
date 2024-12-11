@@ -1,8 +1,7 @@
 import User from "@/models/userModel";
 import { comparePassword } from "@/helpers/authHelper";
 import Cors from 'cors';
-import connectDB from "@/config/db";
- 
+
 const cors = Cors({
   methods: ['POST', 'GET', 'HEAD'], // Allowed methods
   origin: 'https://my-ticket-b9fg.vercel.app', // Replace with your deployed frontend URL
@@ -21,7 +20,6 @@ function runMiddleware(req, res, fn) {
 
 export default async function handler(req,res) {
     try {
-      await connectDB()
       await runMiddleware(req, res, cors);
         const{phone,password}=req.body
         console.log(phone);
