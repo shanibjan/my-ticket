@@ -10,7 +10,7 @@ const NavBar = ({}) => {
   const [isSignup, setIsSignup] = useState(false);
 const[user,setUser]=useState()
   
- console.log(user);
+ 
  
   const fetchUser=async()=>{
     try {
@@ -22,7 +22,7 @@ const[user,setUser]=useState()
 
   useEffect(()=>{
 fetchUser()
-  },[isLogin])
+  },[isLogin || isSignup])
   
   const handleDataFromLogin = (data, goToSignup) => {
     console.log(data);

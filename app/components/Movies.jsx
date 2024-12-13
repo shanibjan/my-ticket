@@ -10,7 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 
-const Movies = ({}) => {
+const Movies = ({moviesDetails}) => {
+  console.log(moviesDetails);
+  
   const [categoryClick, setCategoryClick] = useState("All");
   const [isHidden, setIsHidden] = useState(false);
 const router=useRouter()
@@ -38,7 +40,7 @@ const router=useRouter()
   });
 
   const navToMoviePage=(movie)=>{
-      router.push(`/movie?name=${movie.name}&id=6347345394693846`)
+      router.push(`/movie?name=${movie.movieName}&id=${movie._id}`)
       
   }
   
@@ -84,21 +86,21 @@ const router=useRouter()
 
         <div className="flex justify-start gap-x-8 max-[500px]:gap-x-[10px] overflow-x-scroll hide-scrollbar w-full flex-nowrap py-[2%]">
           {categoryClick === "All"
-            ? movies.map((movie, index) => (
+            ? moviesDetails.map((movie, index) => (
                 <div onClick={()=>navToMoviePage(movie)} key={index} className="flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
                   {" "}
                   {/* Set fixed width */}
                   <img
                     className="w-full object-cover h-[400px] max-[950px]:h-[250px] max-[400px]:h-[215px]"
-                    src={movie.src.src}
+                    src={movie.image}
                     alt=""
                   />
                   <div className="p-[3%]">
-                    <h1 className="font-QSemi text-[18px] max-[930px]:text-[14px] my-[1%]">
-                      {movie.name}
+                    <h1 className="font-QSemi capitalize text-[18px] max-[930px]:text-[14px] my-[1%]">
+                      {movie.movieName}
                     </h1>
-                    <h2 className="font-QRegular text-[14px] max-[930px]:text-[10px]">
-                      {movie.lang}
+                    <h2 className="font-QRegular capitalize text-[14px] max-[930px]:text-[10px]">
+                      {movie.language}
                     </h2>
                   </div>
                 </div>
