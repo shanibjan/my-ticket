@@ -7,10 +7,10 @@ import axios from "axios";
 
 export default async function Home() {
   
-  const res = await axios.get("http://localhost:3000/api/movie/get-movie", {
+  const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
     cache: "no-store", // To disable caching, if necessary
   });
-  const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
+  const upcoming = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie", {
     cache: "no-store", // To disable caching, if necessary
   });
   console.log(upcoming.data);
