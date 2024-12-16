@@ -70,6 +70,26 @@ const AddMovie = ({ onDataSend }) => {
       setError(error.response.data.message);
     }
   };
+  const addupcomingMovieClick =async () => {
+    try {
+      const res=await axios.post('http://localhost:3000/api/movie/add-upcoming-movie',{
+        movieName:name,
+        language,
+        duration,
+        certificate,
+        trailerId,
+        image,
+        genre
+      })
+      if(res.data.success){
+        setIsLogin(false)
+      }
+      
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.message);
+    }
+  };
 
   return (
     <div className="flex h-full overflow-auto hide-scrollbar relative items-center box-border">
@@ -156,12 +176,21 @@ const AddMovie = ({ onDataSend }) => {
             {error}
           </h1>
         )}
+        <div className="flex mx-[2%] justify-between" >
         <h1
           onClick={addMovieClick}
-          className=" cursor-pointer flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center mx-auto w-[50%] border-[#CE567F] mt-[30px]  px-[10%] py-[2%]"
+          className=" cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]"
         >
-          Add
+          Add Popular Movie
         </h1>
+        <h1
+          onClick={addupcomingMovieClick}
+          className=" cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]"
+        >
+          Add upcoming Movie
+        </h1>
+        </div>
+       
         <div className="h-[30px]"></div>
       </div>
 

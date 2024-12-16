@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bp from "../images/bp.jpg";
 import pk from "../images/peaky.jpg";
 import av from "../images/avesham.jpg";
@@ -9,6 +9,7 @@ import mb from "../images/mb.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const Movies = ({moviesDetails}) => {
   console.log(moviesDetails);
@@ -16,6 +17,7 @@ const Movies = ({moviesDetails}) => {
   const [categoryClick, setCategoryClick] = useState("All");
   const [isHidden, setIsHidden] = useState(false);
 const router=useRouter()
+
  
 
   const movies = [
@@ -35,10 +37,15 @@ const router=useRouter()
     "Hindi",
     "English",
   ];
-  const filteredMovies = movies.filter((filter) => {
-    return filter.lang === categoryClick;
+  const filteredMovies = moviesDetails.filter((filter) => {
+    console.log(filter.language.toLowerCase()); // Convert to lowercase
+    console.log(categoryClick.toLowerCase());  // Convert to lowercase
+  
+    return filter.language.toLowerCase() === categoryClick.toLowerCase();
   });
-
+  
+  console.log(filteredMovies); // Logs the filtered results
+  
   const navToMoviePage=(movie)=>{
       router.push(`/movie?name=${movie.movieName}&id=${movie._id}`)
       
@@ -106,19 +113,19 @@ const router=useRouter()
                 </div>
               ))
             : filteredMovies.map((movie, index) => (
-                <div key={index} className="flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
+                <div onClick={()=>navToMoviePage(movie)} key={index} className="flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
                   {" "}
                   {/* Set fixed width */}
                   <img
                     className="w-full object-cover h-[400px]  max-[950px]:h-[250px] max-[400px]:h-[215px]"
-                    src={movie.src.src}
+                    src={movie.image}
                     alt=""
                   />
                   <div className="p-[3%]">
-                    <h1 className="font-QSemi text-[18px] my-[1%]">
-                      {movie.name}
+                    <h1 className="font-QSemi capitalize text-[18px] my-[1%]">
+                      {movie.movieName}
                     </h1>
-                    <h2 className="font-QRegular text-[14px]">{movie.lang}</h2>
+                    <h2 className="font-QRegular capitalize text-[14px]">{movie.language}</h2>
                   </div>
                 </div>
               ))}

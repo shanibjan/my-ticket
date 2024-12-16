@@ -5,32 +5,56 @@ import MoviesDetails from "../components/MovieDetails";
 import ShowTime from "../components/ShowTime";
 import axios from "axios";
 
-const MoviePage =async ({searchParams}) => {
-  
-  const { id } = await searchParams;
-  const res= await axios.get(`http://localhost:3000/api/movie/get-movie/${id}`)
-  console.log(res.data.data);
-  
-  
-  
-
-  
-
-  
-  
-
-  
-  return (
-    <div>
-      <NavBar />
-      <Suspense>
-        <MoviesDetails movieDetails={res.data.data} />
-      </Suspense>
-
-      <ShowTime />
-      <UpcomingMovies />
-    </div>
+const MoviePage = async ({ searchParams }) => {
+  const id = searchParams?.id; // Check if ID exists
+  let a = null;
+  const upcoming = await axios.get(
+    "http://localhost:3000/api/movie/get-upcoming-movie",
+    {
+      cache: "no-store", // To disable caching, if necessary
+    }
   );
+
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/api/movie/get-movie/${id}`
+    );
+
+   
+
+    return (
+      <div>
+        <NavBar />
+        <Suspense>
+          <MoviesDetails movieDetails={res.data.data} />
+        </Suspense>
+        <ShowTime />
+        <UpcomingMovies moviesDetails={upcoming.data} />
+      </div>
+    );
+  } catch (error) {
+    try {
+      const rese = await axios.get(
+        `http://localhost:3000/api/movie/get-upcoming-movie/${id}`
+      );
+
+      a = rese.data.data;
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(error);
+
+    return (
+      <div>
+        <NavBar />
+        <Suspense>
+          <MoviesDetails movieDetails={a} />
+        </Suspense>
+        
+        <UpcomingMovies moviesDetails={upcoming.data} />
+      </div>
+    ); 
+  }
 };
 
 export default MoviePage;
