@@ -6,24 +6,36 @@ import UpcomingMovies from "./components/UpcomingMovies";
 import axios from "axios";
 
 export default async function Home() {
-  
-  const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
-    cache: "no-store", // To disable caching, if necessary
-  });
-  const upcoming = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie", {
-    cache: "no-store", // To disable caching, if necessary
-  });
-  console.log(upcoming.data);
-  
+  let moviesDetails = [];
+  let upcomingMovies = [];
 
-  
+  try {
+    const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
+      cache: "no-store",
+    });
+    console.log(res.data);
+    
+    moviesDetails = res.data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+
+  try {
+    const upcoming = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie", {
+      cache: "no-store",
+    });
+    upcomingMovies = upcoming.data;
+  } catch (error) {
+    console.error("Error fetching upcoming movies:", error);
+  }
+
   return (
-    <div >
-      
-      <NavBar/>
-      <Banner/>
-      <Movies moviesDetails={res.data} />
-      <UpcomingMovies moviesDetails={upcoming.data} />
+    <div>
+      <NavBar />
+      <Banner />
+      <Movies moviesDetails={moviesDetails} />
+      <UpcomingMovies moviesDetails={upcomingMovies} />
     </div>
   );
 }
+
