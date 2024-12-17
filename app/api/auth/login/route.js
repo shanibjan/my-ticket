@@ -1,9 +1,11 @@
 import User from "@/models/userModel";
 import { comparePassword } from "@/helpers/authHelper";
 import { NextResponse } from "next/server";
+import connectDB from "@/config/db";
 
 // POST request handler for login
 export async function POST(req) {
+  connectDB()
   try {
     const { phone, password } = await req.json(); // Parse the request body
 

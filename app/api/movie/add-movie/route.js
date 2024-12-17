@@ -6,7 +6,7 @@ export async function POST(req) {
     await connectDB()
   try {
     const { movieName, language, duration, certificate, genre, image, trailerId } = await req.json();
-    console.log(req.json());
+    
 
     // Validate the data
     if (

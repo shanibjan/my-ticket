@@ -1,9 +1,11 @@
 import User from "@/models/userModel";
 import { hashPassword } from "@/helpers/authHelper";
 import { NextResponse } from "next/server";
+import connectDB from "@/config/db";
 
 // POST request handler for user signup
 export async function POST(req) {
+  connectDB()
   try {
     const { name, phone, password } = await req.json(); // Parse the JSON body
 
