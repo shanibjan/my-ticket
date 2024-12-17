@@ -9,7 +9,7 @@ const MoviePage = async ({ searchParams }) => {
   const {id} = await searchParams// Check if ID exists
   let a = null;
   const upcoming = await axios.get(
-    "http://localhost:3000/api/movie/get-upcoming-movie",
+    "https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie",
     {
       cache: "no-store", // To disable caching, if necessary
     }
@@ -17,7 +17,7 @@ const MoviePage = async ({ searchParams }) => {
 
   try {
     const res = await axios.get(
-      `http://localhost:3000/api/movie/get-movie/${id}`
+      `https://my-ticket-b9fg.vercel.app/api/movie/get-movie/${id}`
     );
 
    
@@ -35,7 +35,7 @@ const MoviePage = async ({ searchParams }) => {
   } catch (error) {
     try {
       const rese = await axios.get(
-        `http://localhost:3000/api/movie/get-upcoming-movie/${id}`
+        `https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie/${id}`
       );
 
       a = rese.data.data;
