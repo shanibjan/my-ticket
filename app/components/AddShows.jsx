@@ -3,8 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
+import AdminMainPage from "../admin/page";
 
 const AddShows = ({ onDataSend, movies }) => {
+  console.log(movies);
+  
   const [dates, setDates] = useState([]);
   const [toDate, setToDate] = useState("");
   const [toMovie, setToMovie] = useState("");
@@ -53,8 +56,10 @@ const AddShows = ({ onDataSend, movies }) => {
 
     return dates;
   };
+ 
   useEffect(() => {
     generateNext7Dates();
+   
   }, []);
 
   const addShow=async()=>{
@@ -64,7 +69,7 @@ const AddShows = ({ onDataSend, movies }) => {
         if(res.data.success){
             setError("")
             setSuccessMessage(toDate + formattedTime + res.data.message)
-            
+           
             
         }
         

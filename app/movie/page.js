@@ -17,6 +17,8 @@ const MoviePage = async ({ searchParams }) => {
       cache: "no-store", // To disable caching, if necessary
     }
   );
+  console.log(upcoming.data);
+  
 
   try {
     const resShows=await axios.get(`http://localhost:3000/api/show/get-show/${id}`)
@@ -59,7 +61,7 @@ const MoviePage = async ({ searchParams }) => {
         <MoviesDetails movieDetails={movieDetails || upcomingMovieDetail} />
       </Suspense>
       <ShowTime showDetailDate={showDetailDate} showDetail={showDetail} />
-      <UpcomingMovies moviesDetails={upcoming.data} />
+      <UpcomingMovies moviesDetails={upcoming.data.movies} />
     </div>
   );
 };

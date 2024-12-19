@@ -5,8 +5,36 @@ import React, { useEffect, useState } from "react";
 import AdminLogin from "../components/AdminLogin";
 import AddMovie from "../components/AddMovie";
 import AddShows from "./AddShows";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-const AdminMain = ({ movies }) => {
+import axios from "axios";
+
+const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
+  console.log(initialMovies);
+  
+  const [movies, setMovies] = useState(initialMovies);
+  const [upcomingMovies, setUpcomingMovies] = useState(initialUpcomingMovies);
+  const fetchMovies = async () => {
+    try {
+      const res = await axios.get("http://localhost:3000/api/movie/get-movie");
+      setMovies(res.data.moviesName); // Update the state with new data
+    } catch (error) {
+      console.error("Error re-fetching movies:", error);
+    }
+  };
+
+  const fetchUpcomingMovies=async()=>{
+    try {
+      const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
+        cache: "no-store",
+      });
+     setUpcomingMovies(upcoming.data.moviesName) ;
+    } catch (error) {
+      console.error("Error fetching upcoming movies:", error);
+    }
+  }
+
   const [admin, setAdmin] = useState();
   const fetchAdmin = async () => {
     try {
@@ -14,14 +42,17 @@ const AdminMain = ({ movies }) => {
     } catch (error) {}
   };
 
-  console.log(admin);
-
   const [isLogin, setIsLogin] = useState(false);
   const [isAddMovie, setIsAddMovie] = useState(false);
   const [isAddShow, setIsAddShow] = useState(false);
   const router = useRouter();
   const params = useSearchParams();
   const success = params.get("success");
+
+  useEffect(() => {
+    fetchMovies();
+    fetchUpcomingMovies()
+  }, [isAddMovie]);
 
   useEffect(() => {
     fetchAdmin();
@@ -49,6 +80,14 @@ const AdminMain = ({ movies }) => {
     if (data === false) {
       setIsAddShow(data);
     }
+  };
+
+  const deleteMovies = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/movie/delete-movie/${id}`);
+      fetchMovies();
+
+    } catch (error) {}
   };
   return (
     <div>
@@ -88,19 +127,57 @@ const AdminMain = ({ movies }) => {
         {admin && (
           <div>
             {success === "true" && (
-              <div className="flex justify-evenly mt-[100px]">
-                <div className="w-[50%]" >
+              <div className="flex justify-evenly mt-[60px] px-[2%]">
+                <div className="w-[50%] ">
                   <h1
                     onClick={() => setIsAddMovie(true)}
                     className=" mx-auto cursor-pointer flex w-[20%] justify-center font-QSemi items-center text-[#CE567F] max-[715px]:text-[13px] border-[1px] border-[#CE567F]  p-[1%]"
                   >
                     Add Movies
                   </h1>
-                  <div className="w-[70%] mx-auto">
-                    <h1>Pushpa</h1>
+                  <div className="flex my-[50px] justify-between" >
+                    <div className="w-[45%] gap-y-[20px] grid" >
+                      <h1 className="font-QSemi" >Movies</h1>
+                      {movies &&
+                        movies.map((movie, i) => {
+                          return (
+                            <div
+                              key={i}
+                              className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
+                            >
+                              <h1 className="font-QRegular">{movie.movieName}</h1>
+                              <FontAwesomeIcon
+                                onClick={() => deleteMovies(movie._id)}
+                                className="text-[#CE567F] cursor-pointer"
+                                icon={faTrash}
+                              />
+                            </div>
+                          );
+                        })}
+                    </div>
+
+                    <div className="w-[45%] gap-y-[30px] grid" >
+                      <h1 className="font-QSemi" >Upcoming movies</h1>
+                      {upcomingMovies &&
+                        upcomingMovies.map((movie, i) => {
+                          return (
+                            <div
+                              key={i}
+                              className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
+                            >
+                              <h1 className="font-QRegular">{movie.movieName}</h1>
+                              <FontAwesomeIcon
+                                onClick={() => deleteMovies(movie._id)}
+                                className="text-[#CE567F] cursor-pointer"
+                                icon={faTrash}
+                              />
+                            </div>
+                          );
+                        })}
+                    </div>
                   </div>
                 </div>
-                <div className="w-[50%]" >
+                <div className="w-[50%]">
                   <h1
                     onClick={() => setIsAddShow(true)}
                     className=" mx-auto cursor-pointer flex w-[20%] justify-center font-QSemi items-center text-[#CE567F] max-[715px]:text-[13px] border-[1px] border-[#CE567F]  p-[1%]"
@@ -125,7 +202,10 @@ const AdminMain = ({ movies }) => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AddMovie onDataSend={handleDataFromAddMovie} />
+                      <AddMovie
+                        movies={movies}
+                        onDataSend={handleDataFromAddMovie}
+                      />
                     </motion.div>
                   </div>
                 </div>
@@ -141,10 +221,7 @@ const AdminMain = ({ movies }) => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AddShows
-                        movies={movies}
-                        onDataSend={handleDataFromAddShows}
-                      />
+                      <AddShows movies={movies} onDataSend={handleDataFromAddShows} />
                     </motion.div>
                   </div>
                 </div>

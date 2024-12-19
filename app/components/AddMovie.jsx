@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
+import AdminMainPage from "../admin/page";
+import Movies from "./Movies";
 
 const AddMovie = ({ onDataSend }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -16,11 +18,12 @@ const AddMovie = ({ onDataSend }) => {
   const [error, setError] = useState("");
   const [image, setImage] = useState();
   
-  console.log(name);
+ 
   
 
   useEffect(() => {
     onDataSend(isLogin);
+   
   }, [isLogin]);
 
   const store = async (e) => {
@@ -63,6 +66,7 @@ const AddMovie = ({ onDataSend }) => {
       })
       if(res.data.success){
         setIsLogin(false)
+       
       }
       
     } catch (error) {

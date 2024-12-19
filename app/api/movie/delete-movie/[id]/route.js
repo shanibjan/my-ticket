@@ -2,16 +2,18 @@ import connectDB from "@/config/db";
 import Movie from "@/models/movieModel";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function DELETE(req, { params }) {
     await connectDB()
   try {
-    const movies = await Movie.find();
-    const moviesName = await Movie.find().select("_id movieName") // Fetch all movies from the database
+    const{id}=await params
+    console.log(id);
+    
+    await Movie.findByIdAndDelete(id);
+    // const moviesName = await Movie.find().select("_id movieName") // Fetch all movies from the database
     return NextResponse.json( {
       success: true,
-      message: "Movie found successfully",
-      movies,
-      moviesName
+      message: "Movie deleted successfully",
+      
     },
     { status: 200 }); // Return response with status 200
   } catch (error) {

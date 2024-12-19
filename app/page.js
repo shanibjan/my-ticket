@@ -14,8 +14,9 @@ export default async function Home() {
       cache: "no-store",
     });
    
+   
     
-    moviesDetails = res.data;
+    moviesDetails = res.data.movies;
   } catch (error) {
     console.error("Error fetching movies:", error);
   }
@@ -24,7 +25,7 @@ export default async function Home() {
     const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
       cache: "no-store",
     });
-    upcomingMovies = upcoming.data;
+    upcomingMovies = upcoming.data.movies;
   } catch (error) {
     console.error("Error fetching upcoming movies:", error);
   }

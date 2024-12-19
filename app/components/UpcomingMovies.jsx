@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 
 
 const UpcomingMovies = ({moviesDetails}) => {
+  console.log(moviesDetails);
   
   
   const [categoryClick, setCategoryClick] = useState("All");
@@ -21,15 +22,7 @@ const UpcomingMovies = ({moviesDetails}) => {
   const router=useRouter()
  
 
-  const movies = [
-    { src: bp, name: "Beeshma Parvam", lang: "Malayalam" },
-    { src: pk, name: "Peaky Blinders", lang: "English" },
-    { src: av, name: "Aavesham", lang: "Malayalam" },
-    { src: t, name: "Turbo", lang: "Malayalam" },
-    { src: p, name: "Pushpa 2: The Rule", lang: "Telugu" },
-    { src: mb, name: "Manjummel Boys", lang: "Malayalam" },
-    { src: mb, name: "Manjummel Boys", lang: "Malayalam" },
-  ];
+ 
   const categories = [
     "All",
     "Malayalam",
