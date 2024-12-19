@@ -6,55 +6,62 @@ import ShowTime from "../components/ShowTime";
 import axios from "axios";
 
 const MoviePage = async ({ searchParams }) => {
-  const {id} = await searchParams// Check if ID exists
-  let a = null;
+  const { id } = await searchParams; // Check if ID exists
+  let movieDetails = null;
+  let upcomingMovieDetail = null;
+  let showDetail = null;
+  let showDetailDate = null;
   const upcoming = await axios.get(
-    "https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie",
+    "http://localhost:3000/api/movie/get-upcoming-movie",
     {
       cache: "no-store", // To disable caching, if necessary
     }
   );
 
   try {
-    const res = await axios.get(
-      `https://my-ticket-b9fg.vercel.app/api/movie/get-movie/${id}`
-    );
-
+    const resShows=await axios.get(`http://localhost:3000/api/show/get-show/${id}`)
    
-
-    return (
-      <div>
-        <NavBar />
-        <Suspense>
-          <MoviesDetails movieDetails={res.data.data} />
-        </Suspense>
-        <ShowTime />
-        <UpcomingMovies moviesDetails={upcoming.data} />
-      </div>
-    );
-  } catch (error) {
-    try {
-      const rese = await axios.get(
-        `https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie/${id}`
-      );
-
-      a = rese.data.data;
-    } catch (error) {
-      console.log(error);
+    
+    if(resShows){
+      showDetail=resShows.data.matchMovie.show
+      showDetailDate=resShows.data.uniqueDates
     }
-    console.log(error);
-
-    return (
-      <div>
-        <NavBar />
-        <Suspense>
-          <MoviesDetails movieDetails={a} />
-        </Suspense>
-        
-        <UpcomingMovies moviesDetails={upcoming.data} />
-      </div>
-    ); 
+  } catch (error) {
+    
   }
+
+  try {
+    const res = await axios.get(
+      `http://localhost:3000/api/movie/get-movie/${id}`
+    );
+
+    if (res) {
+      upcomingMovieDetail = res.data.data;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    const rese = await axios.get(
+      `http://localhost:3000/api/movie/get-upcoming-movie/${id}`
+    );
+
+    movieDetails = rese.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return (
+    <div>
+      <NavBar />
+      <Suspense>
+        <MoviesDetails movieDetails={movieDetails || upcomingMovieDetail} />
+      </Suspense>
+      <ShowTime showDetailDate={showDetailDate} showDetail={showDetail} />
+      <UpcomingMovies moviesDetails={upcoming.data} />
+    </div>
+  );
 };
 
 export default MoviePage;

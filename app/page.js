@@ -10,10 +10,10 @@ export default async function Home() {
   let upcomingMovies = [];
 
   try {
-    const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
+    const res = await axios.get("http://localhost:3000/api/movie/get-movie", {
       cache: "no-store",
     });
-    console.log(res.data);
+   
     
     moviesDetails = res.data;
   } catch (error) {
@@ -21,7 +21,7 @@ export default async function Home() {
   }
 
   try {
-    const upcoming = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-upcoming-movie", {
+    const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
       cache: "no-store",
     });
     upcomingMovies = upcoming.data;

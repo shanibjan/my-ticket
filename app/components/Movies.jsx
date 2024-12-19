@@ -1,18 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import bp from "../images/bp.jpg";
-import pk from "../images/peaky.jpg";
-import av from "../images/avesham.jpg";
-import t from "../images/Turbo.jpg";
-import p from "../images/push.jpg";
-import mb from "../images/mb.jpg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+
 
 const Movies = ({moviesDetails}) => {
-  console.log(moviesDetails);
+ 
   
   const [categoryClick, setCategoryClick] = useState("All");
   const [isHidden, setIsHidden] = useState(false);
@@ -20,15 +15,7 @@ const router=useRouter()
 
  
 
-  const movies = [
-    { src: bp, name: "Beeshma Parvam", lang: "Malayalam" },
-    { src: pk, name: "Peaky Blinders", lang: "English" },
-    { src: av, name: "Aavesham", lang: "Malayalam" },
-    { src: t, name: "Turbo", lang: "Malayalam" },
-    { src: p, name: "Pushpa 2: The Rule", lang: "Telugu" },
-    { src: mb, name: "Manjummel Boys", lang: "Malayalam" },
-    { src: mb, name: "Manjummel Boys", lang: "Malayalam" },
-  ];
+  
   const categories = [
     "All",
     "Malayalam",
@@ -38,13 +25,12 @@ const router=useRouter()
     "English",
   ];
   const filteredMovies = moviesDetails.filter((filter) => {
-    console.log(filter.language.toLowerCase()); // Convert to lowercase
-    console.log(categoryClick.toLowerCase());  // Convert to lowercase
+    // Convert to lowercase
   
     return filter.language.toLowerCase() === categoryClick.toLowerCase();
   });
   
-  console.log(filteredMovies); // Logs the filtered results
+ 
   
   const navToMoviePage=(movie)=>{
       router.push(`/movie?name=${movie.movieName}&id=${movie._id}`)

@@ -110,3 +110,20 @@ body {
   height: 0.1px;
   position: absolute;
 }
+.time-input-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+input[type="time"] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+input[type="time"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}

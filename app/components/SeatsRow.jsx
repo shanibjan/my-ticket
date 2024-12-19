@@ -18,9 +18,9 @@ const SeatsRow = ({}) => {
     "7",
     "8",
     "9",
-    "10",
-    "11",
-    "12",
+    "10"
+   
+    
   ];
   const secondRow = [
     "1",
@@ -31,14 +31,11 @@ const SeatsRow = ({}) => {
     "6",
     "7",
     "8",
-    "9",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
+   
+   
+   
   ];
-  const thirdRow = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  const thirdRow = ["1", "2", "3", "4", "5", "6"];
   const fourthRow = [
     "1",
     "2",
@@ -48,10 +45,7 @@ const SeatsRow = ({}) => {
     "6",
     "7",
     "8",
-    "9",
-    "10",
-    "11",
-    "12",
+   
   ];
   const toggleSeatSelection = (seat) => {
     setSelectedSeats(

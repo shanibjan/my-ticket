@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import YouTube from "react-youtube";
 
 const MoviesDetails = ({ movieDetails }) => {
-  console.log(movieDetails);
+ 
   
   const [isVideo, setIsVideo] = useState(false);
   const videoRef = useRef(null);
@@ -59,7 +59,7 @@ const MoviesDetails = ({ movieDetails }) => {
   // Handle click outside the video container
   useEffect(() => {
     const handleClickOutside = () => {
-      console.log(videoRef.current);
+     
 
       if (videoRef.current) {
         setIsVideo(false);

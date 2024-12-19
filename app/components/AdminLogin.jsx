@@ -35,6 +35,7 @@ const AdminLogin = ({ onDataSend }) => {
 
   useEffect(() => {
     if (success) {
+      localStorage.setItem("my-ticket-admin", JSON.stringify({name:"1",password:"1"}));
       router.push(`?success=${success}`);
       setIsLogin(false)
     }
