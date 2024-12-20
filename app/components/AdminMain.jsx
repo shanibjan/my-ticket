@@ -10,11 +10,40 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
 
-const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
-  console.log(initialMovies);
-  
+const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
+  //
+  const [isMovie, setIsMovie] = useState("movies");
+  const [filteredShow, setFilteredShow] = useState([]);
   const [movies, setMovies] = useState(initialMovies);
   const [upcomingMovies, setUpcomingMovies] = useState(initialUpcomingMovies);
+  const [dates, setDates] = useState([]);
+  const [isDate, setIsDate] = useState("");
+  const [admin, setAdmin] = useState();
+
+  const generateNext7Dates = () => {
+    const dates = [];
+    const currentDate = new Date();
+
+    for (let i = 0; i < 5; i++) {
+      const futureDate = new Date(currentDate); // Clone the current date
+
+      futureDate.setDate(currentDate.getDate() + i); // Add i days to the current date
+
+      const formattedDate = futureDate
+        .toLocaleDateString("en-US", {
+          month: "short", // Short month name (e.g., DEC)
+          day: "2-digit", // Two-digit day (e.g., 18)
+        })
+        .toUpperCase()
+        .replace(" ", "-");
+
+      dates.push(formattedDate);
+      setDates(dates);
+    }
+
+   
+  };
+
   const fetchMovies = async () => {
     try {
       const res = await axios.get("http://localhost:3000/api/movie/get-movie");
@@ -24,18 +53,50 @@ const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
     }
   };
 
-  const fetchUpcomingMovies=async()=>{
+  const fetchUpcomingMovies = async () => {
     try {
-      const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
-        cache: "no-store",
-      });
-     setUpcomingMovies(upcoming.data.moviesName) ;
+      const upcoming = await axios.get(
+        "http://localhost:3000/api/movie/get-upcoming-movie",
+        {
+          cache: "no-store",
+        }
+      );
+      setUpcomingMovies(upcoming.data.moviesName);
     } catch (error) {
       console.error("Error fetching upcoming movies:", error);
     }
-  }
+  };
 
-  const [admin, setAdmin] = useState();
+  
+
+  const fetchFilteredShow = async () => {
+    try {
+      if (isDate) {
+        const res = await axios.get(
+          `http://localhost:3000/api/show/get-show/get-date/${isDate}`
+        );
+        setFilteredShow([]);
+        res.data.matchMovie.forEach((s) => {
+          s.showsTime.forEach((w) => {
+            setFilteredShow((prev) => [...new Set([...prev, w])]); // Use Set to avoid duplicates
+          });
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    setIsDate(dates[0]);
+  }, [dates]);
+  useEffect(() => {
+    generateNext7Dates();
+  }, []);
+  useEffect(() => {
+    fetchFilteredShow();
+  }, [isDate]);
+
+  
   const fetchAdmin = async () => {
     try {
       setAdmin(JSON.parse(localStorage.getItem("my-ticket-admin")));
@@ -51,7 +112,7 @@ const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
 
   useEffect(() => {
     fetchMovies();
-    fetchUpcomingMovies()
+    fetchUpcomingMovies();
   }, [isAddMovie]);
 
   useEffect(() => {
@@ -86,7 +147,6 @@ const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
     try {
       await axios.delete(`http://localhost:3000/api/movie/delete-movie/${id}`);
       fetchMovies();
-
     } catch (error) {}
   };
   return (
@@ -127,65 +187,125 @@ const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
         {admin && (
           <div>
             {success === "true" && (
-              <div className="flex justify-evenly mt-[60px] px-[2%]">
-                <div className="w-[50%] ">
+              <div className="flex justify-between mt-[60px] px-[2%]">
+                <div className="w-[45%] ">
                   <h1
                     onClick={() => setIsAddMovie(true)}
                     className=" mx-auto cursor-pointer flex w-[20%] justify-center font-QSemi items-center text-[#CE567F] max-[715px]:text-[13px] border-[1px] border-[#CE567F]  p-[1%]"
                   >
                     Add Movies
                   </h1>
-                  <div className="flex my-[50px] justify-between" >
-                    <div className="w-[45%] gap-y-[20px] grid" >
-                      <h1 className="font-QSemi" >Movies</h1>
-                      {movies &&
-                        movies.map((movie, i) => {
-                          return (
-                            <div
-                              key={i}
-                              className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
-                            >
-                              <h1 className="font-QRegular">{movie.movieName}</h1>
-                              <FontAwesomeIcon
-                                onClick={() => deleteMovies(movie._id)}
-                                className="text-[#CE567F] cursor-pointer"
-                                icon={faTrash}
-                              />
-                            </div>
-                          );
-                        })}
+                  <div className="flex justify-between mt-[50px]">
+                    <h1
+                      onClick={() => setIsMovie("movies")}
+                      className={`font-QSemi px-[3%] cursor-pointer py-[1%] ${
+                        isMovie === "movies"
+                          ? "border-[1px] text-[#CE567F] border-[#CE567F]  "
+                          : ""
+                      }`}
+                    >
+                      Movies
+                    </h1>
+                    <h1
+                      onClick={() => setIsMovie("upcoming")}
+                      className={`font-QSemi px-[3%] cursor-pointer py-[1%] ${
+                        isMovie === "upcoming"
+                          ? "border-[1px] text-[#CE567F] border-[#CE567F]  "
+                          : ""
+                      }`}
+                    >
+                      Upcoming movies
+                    </h1>
+                  </div>
+
+                  <div className=" my-[50px] ">
+                    <div className=" w-full">
+                      {isMovie === "movies" && (
+                        <div className="grid gap-y-[20px]">
+                          {movies &&
+                            movies.map((movie, i) => {
+                              return (
+                                <div
+                                  key={i}
+                                  className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
+                                >
+                                  <h1 className="font-QRegular">
+                                    {movie.movieName}
+                                  </h1>
+                                  <FontAwesomeIcon
+                                    onClick={() => deleteMovies(movie._id)}
+                                    className="text-[#CE567F] cursor-pointer"
+                                    icon={faTrash}
+                                  />
+                                </div>
+                              );
+                            })}
+                        </div>
+                      )}
                     </div>
 
-                    <div className="w-[45%] gap-y-[30px] grid" >
-                      <h1 className="font-QSemi" >Upcoming movies</h1>
-                      {upcomingMovies &&
-                        upcomingMovies.map((movie, i) => {
-                          return (
-                            <div
-                              key={i}
-                              className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
-                            >
-                              <h1 className="font-QRegular">{movie.movieName}</h1>
-                              <FontAwesomeIcon
-                                onClick={() => deleteMovies(movie._id)}
-                                className="text-[#CE567F] cursor-pointer"
-                                icon={faTrash}
-                              />
-                            </div>
-                          );
-                        })}
+                    <div className=" w-full">
+                      {isMovie === "upcoming" && (
+                        <div className="grid gap-y-[20px]">
+                          {upcomingMovies &&
+                            upcomingMovies.map((movie, i) => {
+                              return (
+                                <div
+                                  key={i}
+                                  className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
+                                >
+                                  <h1 className="font-QRegular">
+                                    {movie.movieName}
+                                  </h1>
+                                  <FontAwesomeIcon
+                                    onClick={() => deleteMovies(movie._id)}
+                                    className="text-[#CE567F] cursor-pointer"
+                                    icon={faTrash}
+                                  />
+                                </div>
+                              );
+                            })}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
-                <div className="w-[50%]">
+                <div className="w-[45%]">
                   <h1
                     onClick={() => setIsAddShow(true)}
                     className=" mx-auto cursor-pointer flex w-[20%] justify-center font-QSemi items-center text-[#CE567F] max-[715px]:text-[13px] border-[1px] border-[#CE567F]  p-[1%]"
                   >
                     Add Shows
                   </h1>
-                  <div>
-                    <h1>Pushpa</h1>
+                  <div className="flex justify-between mt-[50px]">
+                    {dates.map((date, i) => {
+                      return (
+                        <h1
+                          key={i}
+                          onClick={() => setIsDate(date)}
+                          className={`font-QSemi px-[3%] cursor-pointer py-[1%] ${
+                            isDate === date
+                              ? "border-[1px] text-[#CE567F] border-[#CE567F]  "
+                              : ""
+                          }`}
+                        >
+                          {date}
+                        </h1>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-between my-[50px]">
+                    {filteredShow &&
+                      filteredShow.map((show, i) => {
+                        return (
+                          <span
+                            key={i}
+                            className=" text-center border-[1px] text-[#21C179] border-gray-200 px-[2%] py-[1%] font-QMedium "
+                          >
+                            <h1>{show}</h1>
+                          </span>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
@@ -221,7 +341,10 @@ const AdminMain = ({ initialMovies,initialUpcomingMovies }) => {
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <AddShows movies={movies} onDataSend={handleDataFromAddShows} />
+                      <AddShows
+                        movies={movies}
+                        onDataSend={handleDataFromAddShows}
+                      />
                     </motion.div>
                   </div>
                 </div>

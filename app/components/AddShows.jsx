@@ -6,7 +6,7 @@ import axios from "axios";
 import AdminMainPage from "../admin/page";
 
 const AddShows = ({ onDataSend, movies }) => {
-  console.log(movies);
+ 
   
   const [dates, setDates] = useState([]);
   const [toDate, setToDate] = useState("");
@@ -65,7 +65,7 @@ const AddShows = ({ onDataSend, movies }) => {
   const addShow=async()=>{
     try {
         const res= await axios.post('http://localhost:3000/api/show/add-show',{date:toDate,showsTime:formattedTime,movie:toMovie})
-        console.log(res.data);
+       
         if(res.data.success){
             setError("")
             setSuccessMessage(toDate + formattedTime + res.data.message)

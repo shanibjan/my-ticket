@@ -17,7 +17,7 @@ const MoviePage = async ({ searchParams }) => {
       cache: "no-store", // To disable caching, if necessary
     }
   );
-  console.log(upcoming.data);
+  
   
 
   try {
