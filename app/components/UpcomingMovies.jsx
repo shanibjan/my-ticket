@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 
 const UpcomingMovies = ({moviesDetails}) => {
-  console.log(moviesDetails);
+  
   
   
   const [categoryClick, setCategoryClick] = useState("All");

@@ -1,55 +1,86 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const ShowTime = ({ showDetailDate, showDetail }) => {
- 
+const ShowTime = ({ showDetailDate, showDetail,language }) => {
+  const router = useRouter();
   
-  const searchParams=useSearchParams()
-  const name= searchParams.get("name")
-  const id= searchParams.get("id")
-  const date=searchParams.get("date")
-  
-  
-  
-  const router=useRouter()
-  
-  showDetailDate&& showDetailDate.sort((a, b) => {
-    const dateA = new Date(a.date);
-    const dateB = new Date(b.date);
-    return dateA - dateB; // Sort in ascending order
-  });
+
+  const searchParams = useSearchParams();
+  const name = searchParams.get("name");
+  const id = searchParams.get("id");
+  const date = searchParams.get("date");
+
+  showDetailDate.length &&
+    showDetailDate.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB; // Sort in ascending order
+    });
 
   const [categoryClick, setCategoryClick] = useState(
-    date ? date :showDetailDate?showDetailDate[0].date: ""
+    date ? date : showDetailDate.length > 0 ? showDetailDate[0].date : ""
   );
 
-  let filteredShowDetail = showDetail&& showDetail.reduce((acc, curr) => {
-    if (curr.date === categoryClick) {
-      acc.push(curr.showsTime);
+  let filteredShowDetail =
+    showDetail.length > 0
+      ? showDetail.reduce((acc, curr) => {
+          if (curr.date === categoryClick) {
+            acc.push(curr.showsTime);
+          }
+          return acc;
+        }, [])
+      : null;
+
+  const convertTo24Hour = (time) => {
+    const [hours, minutes] = time.split(/[: ]/);
+    const period = time.includes("AM") ? "AM" : "PM";
+    let hour = parseInt(hours, 10);
+
+    if (period === "PM" && hour !== 12) {
+      hour += 12;
+    } else if (period === "AM" && hour === 12) {
+      hour = 0;
     }
-    return acc;
-  }, []);
-const dateClick=((date)=>{
-  setCategoryClick(date)
-  const newParams = new URLSearchParams(searchParams);
-  
-  
+
+    return `${hour.toString().padStart(2, "0")}:${minutes}`;
+  };
+  if (filteredShowDetail) {
+    filteredShowDetail.sort((a, b) => {
+      const timeA = convertTo24Hour(a);
+      const timeB = convertTo24Hour(b);
+
+      return timeA.localeCompare(timeB);
+    });
+  }
+
+  const dateClick = (date) => {
+    setCategoryClick(date);
+    const newParams = new URLSearchParams(searchParams);
+
     newParams.set("name", name || "");
     newParams.set("id", id || "");
     newParams.set("date", date);
-   
+
     // Update the URL without triggering a page reload
     window.history.replaceState(
       {},
       "",
       `${window.location.pathname}?${newParams.toString()}`
     );
-})
+  };
+
+  const selectShow = (showTime) => {
+    router.push(
+      `/seats?movie=${name}&id=${id}&date=${
+        date ? date : showDetailDate.length > 0 ? showDetailDate[0].date : ""
+      }&showtime=${showTime}&lang=${language}`
+    );
+  };
   return (
     <div className="px-[7%] max-[530px]:px-[3%] border-b-[1px] border-b-gray-200">
       <div className="flex gap-x-[20px] mt-[50px] max-[620px]:mt-[20px]">
-        {showDetailDate ? (
+        {showDetailDate.length > 0 ? (
           showDetailDate.map((date, i) => {
             return (
               <button
@@ -79,6 +110,7 @@ const dateClick=((date)=>{
             filteredShowDetail.map((show, i) => {
               return (
                 <span
+                  onClick={() => selectShow(show)}
                   key={i}
                   className=" text-center border-[1px] text-[#21C179] border-gray-200 py-[10%] px-[1%]"
                 >

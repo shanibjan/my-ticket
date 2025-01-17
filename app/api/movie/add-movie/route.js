@@ -5,7 +5,8 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     await connectDB()
   try {
-    const { movieName, language, duration, certificate, genre, image, trailerId } = await req.json();
+    const { movieName, language, duration, certificate, genre, image, trailerId,status,release,overView } = await req.json();
+    console.log(overView);
     
 
     // Validate the data
@@ -16,7 +17,10 @@ export async function POST(req) {
       !certificate ||
       !genre ||
       !image ||
-      !trailerId
+      !trailerId||
+      !status||
+      !release||
+      !overView
     ) {
       return NextResponse.json(
         { message: "All fields are required" },
@@ -25,7 +29,7 @@ export async function POST(req) {
     }
 
     const existingMovie = await Movie.findOne({ movieName, language, trailerId });
-    console.log(existingMovie);
+   
     
 
     if (existingMovie) {
@@ -37,7 +41,7 @@ export async function POST(req) {
 
     // Save the new movie
     const movie = await new Movie({
-        movieName, language, duration, certificate, genre, image, trailerId 
+        movieName, language, duration, certificate, genre, image, trailerId ,status,release,overView
     }).save();
 
     return NextResponse.json(

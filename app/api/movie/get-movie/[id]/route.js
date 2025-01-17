@@ -9,7 +9,7 @@ export async function GET(req, { params }) {
 
     // Fetch the movie by ID
     const movie = await Movie.findById(id);
-
+    const moviePoster=await Movie.findById(id).select('image')
     // Check if the movie exists
     if (!movie) {
       return NextResponse.json(
@@ -27,6 +27,7 @@ export async function GET(req, { params }) {
         success: true,
         message: "Movie found successfully",
         data: movie,
+        image:moviePoster
       },
       { status: 200 } // 200 for success
     );

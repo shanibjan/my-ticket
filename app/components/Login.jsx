@@ -12,7 +12,7 @@ const Login = ({onDataSend }) => {
     const[goToSignup,setGoToSignup]=useState(true)
     const [phone, setPhone] = useState("+91");
     const [error, setError] = useState("");
-    console.log(phone);
+   
     
     const [valid, setValid] = useState(true);
     const [password, setPassword] = useState("");
@@ -46,6 +46,7 @@ const Login = ({onDataSend }) => {
           if (res.data.success) {
             localStorage.setItem("my-ticket-user", JSON.stringify(res.data.user));
             setIsLogin(false);
+            
           }
         } catch (error) {
           console.log(error);

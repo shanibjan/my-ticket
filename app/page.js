@@ -13,21 +13,21 @@ export default async function Home() {
     const res = await axios.get("http://localhost:3000/api/movie/get-movie", {
       cache: "no-store",
     });
-   
-   
-    
-    moviesDetails = res.data.movies;
+
+    moviesDetails = res.data.releasingMovies;
+    upcomingMovies = res.data.upcomingMovies;
   } catch (error) {
     console.error("Error fetching movies:", error);
   }
-
   try {
-    const upcoming = await axios.get("http://localhost:3000/api/movie/get-upcoming-movie", {
+    const res = await axios.get("http://localhost:3000/api/remove-expired-show", {
       cache: "no-store",
     });
-    upcomingMovies = upcoming.data.movies;
+    
+    
+    
   } catch (error) {
-    console.error("Error fetching upcoming movies:", error);
+    console.error( error);
   }
 
   return (
@@ -39,4 +39,3 @@ export default async function Home() {
     </div>
   );
 }
-

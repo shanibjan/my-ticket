@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "NEXT_DEBUG=false next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:prod": "npm run build && npm run start"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.1",
@@ -14,17 +15,27 @@
     "@fortawesome/free-regular-svg-icons": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@next/bundle-analyzer": "^15.1.2",
     "axios": "^1.7.9",
     "bcryptjs": "^2.4.3",
     "browser-image-compression": "^2.0.2",
+    "cookies-next": "^5.0.2",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
     "dotenv": "^16.4.7",
+    "downloadjs": "^1.4.7",
     "framer-motion": "^11.13.3",
+    "html-to-image": "^1.11.11",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.4",
     "next": "15.0.3",
+    "node-cron": "^3.0.3",
+    "qrcode.react": "^4.2.0",
+    "razorpay": "^2.9.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-qr-code": "^2.0.15",
     "react-youtube": "^10.1.0"
   },
   "devDependencies": {

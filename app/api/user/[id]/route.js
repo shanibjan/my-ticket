@@ -1,45 +1,44 @@
-import connectDB from "@/config/db";
-import showTime from "@/models/showTimeModel";
+
+import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
+
 export async function GET(req, { params }) {
-  await connectDB();
   try {
-    const { movie } = await params;
-    let uniqueDates = [];
+    
+    
+    const { id } = await params; // Extract `id` from `params`
+console.log(id);
 
-    const matchMovie = await showTime.findOne({ movie });
-
-    const matchDates = await showTime.findOne({ movie }).select("show.date");
-
-    if (matchDates) {
-      uniqueDates = matchDates.show.filter(
-        (item, index, self) =>
-          index === self.findIndex((t) => t.date === item.date)
-      );
-    }
-
-    if (!matchMovie) {
+    // Fetch the movie by ID
+    const user = await User.findById(id);
+   
+    
+    const userInterestedMovies=await User.findById(id).select('interestedMovies')
+   
+    // Check if the movie exists
+    if (!user) {
       return NextResponse.json(
         {
           success: false,
-          message: "No show matched with this date",
+          message: "No user found",
         },
         { status: 404 } // 404 for not found
       );
     }
 
+    // Return the movie data
     return NextResponse.json(
       {
-        movie,
-        matchMovie,
-        uniqueDates,
+       
+        
+        movies:userInterestedMovies.interestedMovies
       },
       { status: 200 } // 200 for success
     );
   } catch (error) {
     console.log(error);
-
+    
     // Handle errors and send a proper response
     return NextResponse.json(
       {

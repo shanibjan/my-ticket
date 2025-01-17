@@ -10,12 +10,12 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
 
-const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
+const AdminMain = ({ initialMovies }) => {
   //
-  const [isMovie, setIsMovie] = useState("movies");
+  
   const [filteredShow, setFilteredShow] = useState([]);
   const [movies, setMovies] = useState(initialMovies);
-  const [upcomingMovies, setUpcomingMovies] = useState(initialUpcomingMovies);
+  
   const [dates, setDates] = useState([]);
   const [isDate, setIsDate] = useState("");
   const [admin, setAdmin] = useState();
@@ -40,9 +40,27 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
       dates.push(formattedDate);
       setDates(dates);
     }
-
-   
   };
+
+  const convertTo24Hour = (time) => {
+    const [hours, minutes] = time.split(/[: ]/);
+    const period = time.includes("AM") ? "AM" : "PM";
+    let hour = parseInt(hours, 10);
+
+    if (period === "PM" && hour !== 12) {
+      hour += 12;
+    } else if (period === "AM" && hour === 12) {
+      hour = 0;
+    }
+
+    return `${hour.toString().padStart(2, "0")}:${minutes}`;
+  };
+  filteredShow.sort((a, b) => {
+    const timeA = convertTo24Hour(a);
+    const timeB = convertTo24Hour(b);
+
+    return timeA.localeCompare(timeB);
+  });
 
   const fetchMovies = async () => {
     try {
@@ -50,20 +68,6 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
       setMovies(res.data.moviesName); // Update the state with new data
     } catch (error) {
       console.error("Error re-fetching movies:", error);
-    }
-  };
-
-  const fetchUpcomingMovies = async () => {
-    try {
-      const upcoming = await axios.get(
-        "http://localhost:3000/api/movie/get-upcoming-movie",
-        {
-          cache: "no-store",
-        }
-      );
-      setUpcomingMovies(upcoming.data.moviesName);
-    } catch (error) {
-      console.error("Error fetching upcoming movies:", error);
     }
   };
 
@@ -96,7 +100,6 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
     fetchFilteredShow();
   }, [isDate]);
 
-  
   const fetchAdmin = async () => {
     try {
       setAdmin(JSON.parse(localStorage.getItem("my-ticket-admin")));
@@ -110,14 +113,19 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
   const params = useSearchParams();
   const success = params.get("success");
 
+
   useEffect(() => {
     fetchMovies();
-    fetchUpcomingMovies();
+   
   }, [isAddMovie]);
 
   useEffect(() => {
     fetchAdmin();
+   
   }, [isLogin]);
+  useEffect(()=>{
+    fetchFilteredShow()
+  },[isAddShow])
   const adminLogin = () => {
     setIsLogin(true);
   };
@@ -149,6 +157,19 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
       fetchMovies();
     } catch (error) {}
   };
+
+  const removeShow=async(show)=>{
+    try {
+     const res= await axios.post(`http://localhost:3000/api/show/remove-show`,{date:isDate,desiredShow:show})
+     console.log(res.data);
+     fetchFilteredShow()
+     
+     
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
   return (
     <div>
       <div>
@@ -195,34 +216,21 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
                   >
                     Add Movies
                   </h1>
-                  <div className="flex justify-between mt-[50px]">
+                  <div className="flex justify-center mt-[50px]">
                     <h1
-                      onClick={() => setIsMovie("movies")}
-                      className={`font-QSemi px-[3%] cursor-pointer py-[1%] ${
-                        isMovie === "movies"
-                          ? "border-[1px] text-[#CE567F] border-[#CE567F]  "
-                          : ""
-                      }`}
+                      
+                      className='font-QSemi px-[3%] cursor-pointer py-[1%] border-[1px] text-[#CE567F] border-[#CE567F] '
                     >
                       Movies
                     </h1>
-                    <h1
-                      onClick={() => setIsMovie("upcoming")}
-                      className={`font-QSemi px-[3%] cursor-pointer py-[1%] ${
-                        isMovie === "upcoming"
-                          ? "border-[1px] text-[#CE567F] border-[#CE567F]  "
-                          : ""
-                      }`}
-                    >
-                      Upcoming movies
-                    </h1>
+                    
                   </div>
 
                   <div className=" my-[50px] ">
                     <div className=" w-full">
-                      {isMovie === "movies" && (
+                     
                         <div className="grid gap-y-[20px]">
-                          {movies &&
+                        {movies &&
                             movies.map((movie, i) => {
                               return (
                                 <div
@@ -240,34 +248,13 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
                                 </div>
                               );
                             })}
+                          
                         </div>
-                      )}
+                     
+                     
                     </div>
 
-                    <div className=" w-full">
-                      {isMovie === "upcoming" && (
-                        <div className="grid gap-y-[20px]">
-                          {upcomingMovies &&
-                            upcomingMovies.map((movie, i) => {
-                              return (
-                                <div
-                                  key={i}
-                                  className="w-full flex justify-between items-center px-[3%] py-[1%] mx-auto border-[1px] border-gray-300"
-                                >
-                                  <h1 className="font-QRegular">
-                                    {movie.movieName}
-                                  </h1>
-                                  <FontAwesomeIcon
-                                    onClick={() => deleteMovies(movie._id)}
-                                    className="text-[#CE567F] cursor-pointer"
-                                    icon={faTrash}
-                                  />
-                                </div>
-                              );
-                            })}
-                        </div>
-                      )}
-                    </div>
+
                   </div>
                 </div>
                 <div className="w-[45%]">
@@ -297,12 +284,17 @@ const AdminMain = ({ initialMovies, initialUpcomingMovies }) => {
                   <div className="flex justify-between my-[50px]">
                     {filteredShow &&
                       filteredShow.map((show, i) => {
+                        
+                        
                         return (
                           <span
                             key={i}
-                            className=" text-center border-[1px] text-[#21C179] border-gray-200 px-[2%] py-[1%] font-QMedium "
+                            className=" cursor-pointer group text-center border-[1px] text-[#21C179] border-gray-200 px-[2%] py-[1%] font-QMedium "
                           >
-                            <h1>{show}</h1>
+                            <h1 className="group-hover:hidden">{show}</h1>
+                            <h1 onClick={()=>removeShow(show)} className=" hidden group-hover:block text-red-600">
+                              Remove
+                            </h1>
                           </span>
                         );
                       })}

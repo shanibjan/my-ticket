@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
-import AdminMainPage from "../admin/page";
-import Movies from "./Movies";
+
 
 const AddMovie = ({ onDataSend }) => {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,8 +16,9 @@ const AddMovie = ({ onDataSend }) => {
   const [trailerId, setTrailerId] = useState("");
   const [error, setError] = useState("");
   const [image, setImage] = useState();
-  
- 
+  const [status, setStatus] = useState("");
+  const [releaseDate, setReleaseDate] = useState("");
+  const [overView, setOverView] = useState("");
   
 
   useEffect(() => {
@@ -62,7 +62,10 @@ const AddMovie = ({ onDataSend }) => {
         certificate,
         trailerId,
         image,
-        genre
+        genre,
+        release:releaseDate,
+        status,
+        overView
       })
       if(res.data.success){
         setIsLogin(false)
@@ -74,26 +77,7 @@ const AddMovie = ({ onDataSend }) => {
       setError(error.response.data.message);
     }
   };
-  const addupcomingMovieClick =async () => {
-    try {
-      const res=await axios.post('http://localhost:3000/api/movie/add-upcoming-movie',{
-        movieName:name,
-        language,
-        duration,
-        certificate,
-        trailerId,
-        image,
-        genre
-      })
-      if(res.data.success){
-        setIsLogin(false)
-      }
-      
-    } catch (error) {
-      console.log(error);
-      setError(error.response.data.message);
-    }
-  };
+  
 
   return (
     <div className="flex h-full overflow-auto hide-scrollbar relative items-center box-border">
@@ -118,6 +102,24 @@ const AddMovie = ({ onDataSend }) => {
             className="outline-none capitalize w-[90%] bg-gray-100 text-gray-500"
             type="text"
             placeholder="Language"
+          />
+        </div>
+        <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
+          <input
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="outline-none capitalize w-[90%] bg-gray-100 text-gray-500"
+            type="text"
+            placeholder="Status"
+          />
+        </div>
+        <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
+          <input
+            value={releaseDate}
+            onChange={(e) => setReleaseDate(e.target.value)}
+            className="outline-none capitalize w-[90%] bg-gray-100 text-gray-500"
+            type="text"
+            placeholder="Release Date"
           />
         </div>
         <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
@@ -175,24 +177,28 @@ const AddMovie = ({ onDataSend }) => {
             placeholder="Trailer Id"
           />
         </div>
+        <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
+          <input
+            value={overView}
+            onChange={(e) => setOverView(e.target.value)}
+            className="outline-none  w-[90%] bg-gray-100 text-gray-500"
+            type="text"
+            placeholder="Overview"
+          />
+        </div>
         {error && (
           <h1 className="mb-[10px] text-[15px] font-QRegular text-center text-red-600">
             {error}
           </h1>
         )}
-        <div className="flex mx-[2%] justify-between" >
+        <div className="flex mx-[2%] justify-center" >
         <h1
           onClick={addMovieClick}
           className=" cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]"
         >
-          Add Popular Movie
+          Add  Movie
         </h1>
-        <h1
-          onClick={addupcomingMovieClick}
-          className=" cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]"
-        >
-          Add upcoming Movie
-        </h1>
+        
         </div>
        
         <div className="h-[30px]"></div>

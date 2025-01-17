@@ -5,35 +5,33 @@ import { NextResponse } from "next/server";
 export async function GET(req, { params }) {
   await connectDB();
   try {
-    const{date}=await params
-   
-    
+    const { date } = await params;
+
     const matchMovie = await showTime.aggregate([
       {
         $addFields: {
           show: {
             $filter: {
               input: "$show", // The array to filter
-              as: "item",     // Alias for each array element
-              cond: { $eq: ["$$item.date", date] } // Condition to match the date
-            }
-          }
-        }
+              as: "item", // Alias for each array element
+              cond: { $eq: ["$$item.date", date] }, // Condition to match the date
+            },
+          },
+        },
       },
       {
         $match: {
-          "show.0": { $exists: true } // Ensure the filtered `show` array is not empty
-        }
+          "show.0": { $exists: true }, // Ensure the filtered `show` array is not empty
+        },
       },
       {
         $project: {
-          _id: 0,  // Exclude the _id field if not needed
-          showsTime: "$show.showsTime" 
-        }
-      }
-    ])
-   
-    
+          _id: 0, // Exclude the _id field if not needed
+          showsTime: "$show.showsTime",
+        },
+      },
+    ]);
+
     if (!matchMovie) {
       return NextResponse.json(
         {

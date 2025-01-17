@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema(
       type:String,
       require:true,
     },
+    interestedMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'movie', required: true }],
+   
 
   },
   {

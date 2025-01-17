@@ -1,36 +1,24 @@
-import upcomingMovie from "@/models/upcomingMovieModel";
+import User from "@/models/userModel";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
-    console.log(req);
-    
     const { id } = await params; // Extract `id` from `params`
+   
+    const users = await User.find();
+    const matchedMovies = users.filter((user) =>
+      user.interestedMovies.includes(id)
+    );
 
-    // Fetch the movie by ID
-    const movie = await upcomingMovie.findById(id);
-
-    // Check if the movie exists
-    if (!movie) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: "No movie found",
-        },
-        { status: 404 } // 404 for not found
-      );
-    }
-
-    // Return the movie data
     return NextResponse.json(
       {
-        success: true,
-        message: "Movie found successfully",
-        data: movie,
+        length: matchedMovies.length,
       },
       { status: 200 } // 200 for success
     );
   } catch (error) {
+    console.log(error);
+
     // Handle errors and send a proper response
     return NextResponse.json(
       {

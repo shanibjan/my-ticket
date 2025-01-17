@@ -32,6 +32,18 @@ const movieSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    status: {
+      type: String,
+      require: true,
+    },
+    release: {
+      type: String,
+      require: true,
+    },
+    overView: {
+      type: String,
+      require: true,
+    },
   },
   {
     timestamps: true,

@@ -6,16 +6,15 @@ import axios from "axios";
 import AdminMainPage from "../admin/page";
 
 const AddShows = ({ onDataSend, movies }) => {
- 
-  
   const [dates, setDates] = useState([]);
   const [toDate, setToDate] = useState("");
   const [toMovie, setToMovie] = useState("");
   const [time, setTime] = useState("");
-  const [successMessage,setSuccessMessage]=useState("")
+  const [status, setStatus] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [isLogin, setIsLogin] = useState(true);
   const [formattedTime, setFormattedTime] = useState("");
-  
+  console.log(status);
 
   const [error, setError] = useState("");
 
@@ -56,30 +55,39 @@ const AddShows = ({ onDataSend, movies }) => {
 
     return dates;
   };
- 
+
   useEffect(() => {
     generateNext7Dates();
-   
   }, []);
 
-  const addShow=async()=>{
+  const addShow = async () => {
     try {
-        const res= await axios.post('http://localhost:3000/api/show/add-show',{date:toDate,showsTime:formattedTime,movie:toMovie})
-       
-        if(res.data.success){
-            setError("")
-            setSuccessMessage(toDate + formattedTime + res.data.message)
-           
-            
-        }
-        
+      const res = await axios.post("http://localhost:3000/api/show/add-show", {
+        date: toDate,
+        showsTime: formattedTime,
+        movie: toMovie,
+      });
+
+      if (res.data.success) {
+        setError("");
+        setSuccessMessage(toDate + formattedTime + res.data.message);
+      }
     } catch (error) {
-        setSuccessMessage("")
-        console.log(error);
-        setError(error.response.data.message)
-        
+      setSuccessMessage("");
+      console.log(error);
+      setError(error.response.data.message);
     }
-  }
+    if(status!=="releasing"){
+      try {
+        const res=await axios.put('http://localhost:3000/api/movie/update-movie',{id:toMovie,updatedStatus:"releasing"})
+        console.log(res.data);
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+  };
   return (
     <div className="flex h-full overflow-auto hide-scrollbar relative items-center box-border">
       <div className="w-full h-full pt-[30px] pb-[30px]">
@@ -119,12 +127,23 @@ const AddShows = ({ onDataSend, movies }) => {
           <select
             className="w-full bg-gray-100 outline-none capitalize"
             value={toMovie}
-            onChange={(e) => setToMovie(e.target.value)}
+            onChange={(e) => {
+              const [id, status] = e.target.value.split("|");
+
+              setStatus(status);
+              setToMovie(id);
+            }}
           >
             <option value="">Select Movie</option>
             {movies.map((d, i) => {
+              
+              
               return (
-                <option className="bg-gray-100 " key={i} value={d._id}>
+                <option
+                  className="bg-gray-100 "
+                  key={i}
+                  value={`${d._id}|${d.status}`}
+                >
                   {d.movieName}
                 </option>
               );
@@ -132,21 +151,22 @@ const AddShows = ({ onDataSend, movies }) => {
           </select>
         </div>
 
-       
         {successMessage ? (
           <h1 className="mb-[10px] text-[15px] font-QRegular text-center text-green-500">
             {successMessage}
           </h1>
-        ):error ? (
-            <h1 className="mb-[10px] text-[15px] font-QRegular text-center text-red-600">
-              {error}
-            </h1>
-          ):null}
-        
-          <h1 onClick={addShow} className="mx-auto cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]">
-            Add Show
+        ) : error ? (
+          <h1 className="mb-[10px] text-[15px] font-QRegular text-center text-red-600">
+            {error}
           </h1>
-        
+        ) : null}
+
+        <h1
+          onClick={addShow}
+          className="mx-auto cursor-pointer text-center flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center  w-[30%] max-[425px]:w-[45%] border-[#CE567F] mt-[30px] p-[2%]"
+        >
+          Add Show
+        </h1>
 
         <div className="h-[30px]"></div>
       </div>

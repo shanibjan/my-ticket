@@ -6,34 +6,52 @@ import Login from "./Login";
 import Signup from "./SignUp";
 import { useRouter } from "next/navigation";
 
-const NavBar = ({}) => {
+const NavBar = ({l}) => {
+ 
+  
+  
+  
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+ 
+
   const [user, setUser] = useState();
   const router=useRouter()
+ 
+  
+  
+
+
 
   const fetchUser = async () => {
     try {
+
       setUser(JSON.parse(localStorage.getItem("my-ticket-user")));
     } catch (error) {}
   };
 
   useEffect(() => {
     fetchUser();
-  }, [isLogin || isSignup]);
+  }, [isLogin || isSignup|| l]);
+  
 
   const handleDataFromLogin = (data, goToSignup) => {
-    console.log(data);
+  
+   
 
     if (data === false) {
       setIsLogin(data);
+     
     }
     if (goToSignup === false) {
       setIsLogin(goToSignup);
       setIsSignup(true);
     }
+    
   };
   const handleDataFromSignup = (data, goToLogin) => {
+    console.log(data);
+    
     if (data === false) {
       setIsSignup(data);
     }
@@ -63,15 +81,18 @@ const NavBar = ({}) => {
             }}
             className=" flex items-center text-[#417AB2] max-[715px]:text-[13px] border-[1px] border-[#417AB2]  px-[10%] py-[2%]"
           >
-            {user ? "Hi, " + user.name : "Login"}
+            {user ? "Hi, " + user.name.slice(0,4) : "Login"}
           </h1>
           <h1
-            onClick={() => {
-              user
-                ? localStorage.removeItem("my-ticket-user")
-                : setIsSignup(!isSignup);
-              fetchUser();
-            }}
+           onClick={() => {
+            if (user) {
+              localStorage.removeItem("my-ticket-user");
+              router.push('/');
+            } else {
+              setIsSignup(!isSignup);
+            }
+            fetchUser();
+          }}
             className="flex items-center text-[#CE567F] max-[715px]:text-[13px] border-[1px] border-[#CE567F] px-[10%] py-[2%]"
           >
             {user ? "Logout" : "Signup"}
