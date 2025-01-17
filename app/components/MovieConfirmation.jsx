@@ -13,6 +13,7 @@ const MovieConfirmation = ({ poster, seatQuantity, day }) => {
   const router = useRouter();
   const [text, setText] = useState("");
   const[isSave,setIsSave]=useState(false)
+console.log(seatQuantity);
 
   const [pay, setPay] = useState();
   let payment = "";
@@ -176,7 +177,7 @@ setIsSave(true)
             </div>
             <div className="flex items-center max-[630px]:text-[14px] bg-slate-100 p-[2%]">
               <div>
-                <h1 className="text-center font-QSemi">1</h1>
+                <h1 className="text-center font-QSemi">{seatQuantity.length}</h1>
                 <h2 className="font-QSemi text-gray-500">TICKET</h2>
               </div>
             </div>

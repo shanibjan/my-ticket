@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 const SeatsRow = ({ show,onDataChange ,seatLength}) => {
   
   
+  
   const searchParams = useSearchParams();
   const showTime = searchParams.get("showtime");
  
@@ -24,6 +25,9 @@ useEffect(()=>{
   const secondRow = ["1", "2", "3", "4", "5", "6", "7", "8"];
   const thirdRow = ["1", "2", "3", "4", "5", "6"];
   const fourthRow = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  let totalSeat=firstRow.length+secondRow.length+thirdRow.length+fourthRow.length
+
+  
   const toggleSeatSelection = (seat) => {
     setSelectedSeats(
       (prev) =>

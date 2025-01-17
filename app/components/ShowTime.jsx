@@ -2,9 +2,8 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const ShowTime = ({ showDetailDate, showDetail,language }) => {
+const ShowTime = ({ showDetailDate, showDetail, language }) => {
   const router = useRouter();
-  
 
   const searchParams = useSearchParams();
   const name = searchParams.get("name");
@@ -22,15 +21,15 @@ const ShowTime = ({ showDetailDate, showDetail,language }) => {
     date ? date : showDetailDate.length > 0 ? showDetailDate[0].date : ""
   );
 
-  let filteredShowDetail =
-    showDetail.length > 0
-      ? showDetail.reduce((acc, curr) => {
-          if (curr.date === categoryClick) {
-            acc.push(curr.showsTime);
-          }
-          return acc;
-        }, [])
-      : null;
+  // let filteredShowDetail =
+  //   showDetail.length > 0
+  //     ? showDetail.reduce((acc, curr) => {
+  //         if (curr.date === categoryClick) {
+  //           acc.push(curr.showsTime);
+  //         }
+  //         return acc;
+  //       }, [])
+  //     : null;
 
   const convertTo24Hour = (time) => {
     const [hours, minutes] = time.split(/[: ]/);
@@ -45,14 +44,21 @@ const ShowTime = ({ showDetailDate, showDetail,language }) => {
 
     return `${hour.toString().padStart(2, "0")}:${minutes}`;
   };
-  if (filteredShowDetail) {
-    filteredShowDetail.sort((a, b) => {
-      const timeA = convertTo24Hour(a);
-      const timeB = convertTo24Hour(b);
+  // if (filteredShowDetail) {
+  //   filteredShowDetail.sort((a, b) => {
+  //     const timeA = convertTo24Hour(a);
+  //     const timeB = convertTo24Hour(b);
 
-      return timeA.localeCompare(timeB);
-    });
-  }
+  //     return timeA.localeCompare(timeB);
+  //   });
+  // }
+
+  showDetail.sort((a, b) => {
+    const timeA = convertTo24Hour(a.showsTime);
+    const timeB = convertTo24Hour(b.showsTime);
+
+    return timeA.localeCompare(timeB);
+  });
 
   const dateClick = (date) => {
     setCategoryClick(date);
@@ -106,7 +112,7 @@ const ShowTime = ({ showDetailDate, showDetail,language }) => {
           </h1>
         </div>
         <div className="grid grid-cols-6 w-[70%] gap-[25px] max-[800px]:gap-[10px] font-QSemi cursor-pointer max-[1170px]:grid-cols-5 max-[870px]:w-[90%] max-[620px]:w-full max-[870px]:grid-cols-4 max-[800px]:grid-cols-3">
-          {filteredShowDetail &&
+          {/* {filteredShowDetail &&
             filteredShowDetail.map((show, i) => {
               return (
                 <span
@@ -117,7 +123,33 @@ const ShowTime = ({ showDetailDate, showDetail,language }) => {
                   <h1>{show}</h1>
                 </span>
               );
-            })}
+            })} */}
+          {showDetail.map((show, i) =>
+            show.date === categoryClick ? (
+              show.seats.length === 32 ? (
+                <span
+                  key={i}
+                  className={`text-center border-[1px] text-gray-400 border-gray-200 py-[10%] px-[1%]  `}
+                >
+                  <h1>{show.showsTime}</h1>
+                </span>
+              ) : (
+                <span
+                  onClick={() => selectShow(show.showsTime)}
+                  key={i}
+                  className={`text-center border-[1px] text-[#21C179] border-gray-200 py-[10%] px-[1%] ${
+                    show.seats.length > 16 && show.seats.length < 24
+                      ? "text-[#FF9D00]"
+                      : show.seats.length > 24 && show.seats.length < 32
+                      ? "text-[#F44337]"
+                      : ""
+                  } `}
+                >
+                  <h1>{show.showsTime}</h1>
+                </span>
+              )
+            ) : null
+          )}
         </div>
       </div>
     </div>

@@ -4,7 +4,25 @@ import React, { useEffect, useState } from "react";
 
 const ShowDetails = ({show,day}) => {
  
- 
+  const convertTo24Hour = (time) => {
+    const [hours, minutes] = time.split(/[: ]/);
+    const period = time.includes("AM") ? "AM" : "PM";
+    let hour = parseInt(hours, 10);
+
+    if (period === "PM" && hour !== 12) {
+      hour += 12;
+    } else if (period === "AM" && hour === 12) {
+      hour = 0;
+    }
+
+    return `${hour.toString().padStart(2, "0")}:${minutes}`;
+  };
+  show.sort((a, b) => {
+    const timeA = convertTo24Hour(a.showsTime);
+    const timeB = convertTo24Hour(b.showsTime);
+
+    return timeA.localeCompare(timeB);
+  });
  
   
   
@@ -75,13 +93,39 @@ const showTimeSelect=(show)=>{
               <h1>{date}</h1>
             </div>
             <div className="flex w-[90%] gap-x-[25px] max-[425px]:gap-x-[15px] overflow-x-scroll font-QSemi cursor-pointer ml-[4%] hide-scrollbar">
-              {show.map((show,i)=>{
+              {/* {show.map((show,i)=>{
                   return(
                     <span onClick={()=>showTimeSelect(show.showsTime)} key={i}  className={` flex-shrink-0 w-[12%] max-[425px]:w-[30%] text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] ${showTimeBg===show.showsTime?"bg-[#CE567F] text-white":"text-[#21C179]"}`}>
                 <h1>{show.showsTime}</h1>
               </span>
                   )
-              })}
+              })} */}
+              {show.map((show, i) =>
+          
+              show.seats.length === 32 ? (
+                <span
+                  key={i}
+                  className={`flex-shrink-0 w-[12%] max-[425px]:w-[30%] text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] text-gray-400 `}
+                >
+                  <h1>{show.showsTime}</h1>
+                </span>
+              ) : (
+                <span
+                onClick={()=>showTimeSelect(show.showsTime)}
+                  key={i}
+                  className={`flex-shrink-0 w-[12%] max-[425px]:w-[30%] text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] ${showTimeBg===show.showsTime?"bg-[#CE567F] text-white":"text-[#21C179]"} ${
+                    show.seats.length > 16 && show.seats.length < 24 && showTimeBg!==show.showsTime
+                      ? "text-[#FF9D00]"
+                      : show.seats.length > 24 && show.seats.length < 32 && showTimeBg!==show.showsTime
+                      ? "text-[#F44337]"
+                      : ""
+                  } `}
+                >
+                  <h1>{show.showsTime}</h1>
+                </span>
+              )
+            
+          )}
               
               
             </div>
