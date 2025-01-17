@@ -84,7 +84,7 @@ console.log(seatQuantity);
     try {
       if (payment) {
         const res = await axios.post(
-          "https://my-ticket-b9fg.vercel.app/pi/seat/add-seat",
+          "https://my-ticket-b9fg.vercel.app/api/seat/add-seat",
           { seats: seatQuantity, movie: id, showTimematch: showTime, date }
         );
         console.log(res.data);
