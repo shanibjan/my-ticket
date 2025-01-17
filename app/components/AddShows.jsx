@@ -62,7 +62,7 @@ const AddShows = ({ onDataSend, movies }) => {
 
   const addShow = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/api/show/add-show", {
+      const res = await axios.post("https://my-ticket-b9fg.vercel.app/api/show/add-show", {
         date: toDate,
         showsTime: formattedTime,
         movie: toMovie,
@@ -79,7 +79,7 @@ const AddShows = ({ onDataSend, movies }) => {
     }
     if(status!=="releasing"){
       try {
-        const res=await axios.put('http://localhost:3000/api/movie/update-movie',{id:toMovie,updatedStatus:"releasing"})
+        const res=await axios.put('https://my-ticket-b9fg.vercel.app/api/movie/update-movie',{id:toMovie,updatedStatus:"releasing"})
         console.log(res.data);
         
       } catch (error) {

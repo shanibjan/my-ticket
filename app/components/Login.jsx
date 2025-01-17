@@ -37,7 +37,7 @@ const Login = ({onDataSend }) => {
 
       const loginClick = async () => {
         try {
-          const res = await axios.post(`http://localhost:3000/api/auth/login`, {
+          const res = await axios.post(`https://my-ticket-b9fg.vercel.app/pi/auth/login`, {
             
             password,
             phone,

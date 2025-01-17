@@ -25,7 +25,7 @@ const Seats = () => {
   const dataFetch = async () => {
     try {
       const resShows = await axios.get(
-        `http://localhost:3000/api/show/get-show/${id}`
+        `https://my-ticket-b9fg.vercel.app/api/show/get-show/${id}`
       );
       if (resShows) {
         const filteredShows = resShows.data.matchMovie.show.filter(
@@ -43,7 +43,7 @@ const Seats = () => {
   const posterFetch = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/movie/get-movie/${id}`
+        `https://my-ticket-b9fg.vercel.app/api/movie/get-movie/${id}`
       );
       if (res) {
         setPoster(res.data.image.image);

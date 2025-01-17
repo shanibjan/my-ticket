@@ -55,7 +55,7 @@ const AddMovie = ({ onDataSend }) => {
 
   const addMovieClick =async () => {
     try {
-      const res=await axios.post('http://localhost:3000/api/movie/add-movie',{
+      const res=await axios.post('https://my-ticket-b9fg.vercel.app/api/movie/add-movie',{
         movieName:name,
         language,
         duration,

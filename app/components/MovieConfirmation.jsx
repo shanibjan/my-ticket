@@ -41,7 +41,7 @@ console.log(seatQuantity);
 
     try {
       const { data: order } = await axios.post(
-        "http://localhost:3000/api/payment/create-payment",
+        "https://my-ticket-b9fg.vercel.app/api/payment/create-payment",
         {
           amount: Math.round(total * 100), // e.g., 50000 paise = ₹500
         }
@@ -84,7 +84,7 @@ console.log(seatQuantity);
     try {
       if (payment) {
         const res = await axios.post(
-          "http://localhost:3000/api/seat/add-seat",
+          "https://my-ticket-b9fg.vercel.app/pi/seat/add-seat",
           { seats: seatQuantity, movie: id, showTimematch: showTime, date }
         );
         console.log(res.data);

@@ -64,7 +64,7 @@ const AdminMain = ({ initialMovies }) => {
 
   const fetchMovies = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/movie/get-movie");
+      const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie");
       setMovies(res.data.moviesName); // Update the state with new data
     } catch (error) {
       console.error("Error re-fetching movies:", error);
@@ -77,7 +77,7 @@ const AdminMain = ({ initialMovies }) => {
     try {
       if (isDate) {
         const res = await axios.get(
-          `http://localhost:3000/api/show/get-show/get-date/${isDate}`
+          `https://my-ticket-b9fg.vercel.app/api/show/get-show/get-date/${isDate}`
         );
         setFilteredShow([]);
         res.data.matchMovie.forEach((s) => {
@@ -153,14 +153,14 @@ const AdminMain = ({ initialMovies }) => {
 
   const deleteMovies = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/movie/delete-movie/${id}`);
+      await axios.delete(`https://my-ticket-b9fg.vercel.app/api/movie/delete-movie/${id}`);
       fetchMovies();
     } catch (error) {}
   };
 
   const removeShow=async(show)=>{
     try {
-     const res= await axios.post(`http://localhost:3000/api/show/remove-show`,{date:isDate,desiredShow:show})
+     const res= await axios.post(`https://my-ticket-b9fg.vercel.app/api/show/remove-show`,{date:isDate,desiredShow:show})
      console.log(res.data);
      fetchFilteredShow()
      

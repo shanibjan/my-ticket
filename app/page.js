@@ -11,7 +11,7 @@ export default async function Home() {
 
 
   try {
-    const res = await axios.get("http://localhost:3000/api/movie/get-movie", {
+    const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
       cache: "no-store",
     });
 
@@ -21,7 +21,7 @@ export default async function Home() {
     console.error("Error fetching movies:", error);
   }
   try {
-    const res = await axios.get("http://localhost:3000/api/remove-expired-show", {
+    const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/remove-expired-show", {
       cache: "no-store",
     });
     

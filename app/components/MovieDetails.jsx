@@ -32,7 +32,7 @@ const MoviesDetails = ({ movieDetails }) => {
     try {
       if (user) {
         const res = await axios.get(
-          `http://localhost:3000/api/user/${user._id}`
+          `https://my-ticket-b9fg.vercel.app/api/user/${user._id}`
         );
         setInterestedMovies(res.data.movies);
       }
@@ -43,7 +43,7 @@ const MoviesDetails = ({ movieDetails }) => {
   const fetchInterestedMoviesLength = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3000/api/user/get-movies-count/${movieDetails._id}`
+        `https://my-ticket-b9fg.vercel.app/api/user/get-movies-count/${movieDetails._id}`
       );
       console.log(res.data.length);
       
@@ -129,7 +129,7 @@ const MoviesDetails = ({ movieDetails }) => {
   const handleInterest = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/movie/handle-interest",
+        "https://my-ticket-b9fg.vercel.app/api/movie/handle-interest",
         { userId: user._id, movieId: movieDetails._id }
       );
 
