@@ -1,6 +1,7 @@
 import withBundleAnalyzer from '@next/bundle-analyzer';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+export const dynamic = "force-dynamic"; // Add this at the top of /seats/page.js
 
 // Polyfill __filename and __dirname
 const __filename = fileURLToPath(import.meta.url);

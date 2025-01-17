@@ -9,6 +9,7 @@ export default async function Home() {
   let moviesDetails = [];
   let upcomingMovies = [];
 
+
   try {
     const res = await axios.get("http://localhost:3000/api/movie/get-movie", {
       cache: "no-store",
