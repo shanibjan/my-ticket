@@ -1,9 +1,10 @@
 
-import NavBar from "./components/NavBar";
-import Banner from "./components/Banner";
-import Movies from "./components/Movies";
-import UpcomingMovies from "./components/UpcomingMovies";
+
 import axios from "axios";
+import NavBar from '../components/NavBar';
+import Banner from "../components/Banner";
+import Movies from "../components/Movies";
+import UpcomingMovies from "../components/UpcomingMovies";
 
 export default async function Home() {
   let moviesDetails = [];
