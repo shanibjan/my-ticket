@@ -8,7 +8,7 @@ import UpcomingMovies from "../components/UpcomingMovies";
 
 export default async function Home() {
   let moviesDetails = [];
-  let upcomingMovies = [];
+  let upcomingMovies = []
 
 
   try {
