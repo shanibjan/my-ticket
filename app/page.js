@@ -5,20 +5,21 @@ import Movies from "./components/Movies";
 import UpcomingMovies from "./components/UpcomingMovies";
 import axios from "axios";
 
-export default async function Home() {
+const Home = async ({  }) => {
   let moviesDetails = [];
   let upcomingMovies = [];
 
 
   try {
-    const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
-      cache: "no-store",
+    const res = await fetch("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
+      method: "GET",
+      cache: "no-store", // Ensures fresh data is fetched on every request
     });
-    console.log(res.data);
-    
-    moviesDetails = res.data.releasingMovies;
-    upcomingMovies = res.data.upcomingMovies;
-    console.log(upcomingMovies);
+    const data = await res.json();
+    if(res){
+      moviesDetails = data.releasingMovies;
+      upcomingMovies = data.upcomingMovies;
+    }
     
   } catch (error) {
     console.error("Error fetching movies:", error);
@@ -43,3 +44,5 @@ export default async function Home() {
     </div>
   );
 }
+
+export default Home;
