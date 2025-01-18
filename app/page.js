@@ -14,7 +14,8 @@ export default async function Home() {
     const res = await axios.get("https://my-ticket-b9fg.vercel.app/api/movie/get-movie", {
       cache: "no-store",
     });
-
+    console.log(res.data);
+    
     moviesDetails = res.data.releasingMovies;
     upcomingMovies = res.data.upcomingMovies;
   } catch (error) {
