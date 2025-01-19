@@ -27,13 +27,22 @@ singleShowSchema.pre("validate", function (next) {
     const hours = (parseInt(time) % 12) + (period === "PM" ? 12 : 0);
     const parsedMinutes = parseInt(minutes);
 
-    // Parse date and set timezone explicitly
-    const showDate = moment
-      .tz(`${this.date} ${new Date().getFullYear()}`, "MMM-DD YYYY", "UTC")
-      .set({ hour: hours, minute: parsedMinutes, second: 0, millisecond: 0 });
+    // Combine `date` and `showsTime` and treat it as LOCAL time
+    const localDate = moment.tz(
+      `${this.date} ${new Date().getFullYear()} ${hours}:${parsedMinutes}`,
+      "MMM-DD YYYY HH:mm",
+      "Asia/Kolkata" // Replace with your local timezone
+    );
 
-    // Set expiresAt to 20 minutes before the show time
-    this.expiresAt = showDate.subtract(20, "minutes").toDate();
+    // Convert the local time to UTC
+    const utcDate = localDate.clone().utc();
+
+    // Subtract 20 minutes from the UTC time
+    this.expiresAt = utcDate.subtract(20, "minutes").toDate();
+
+    console.log("Local Time:", localDate.format());
+    console.log("UTC Time:", utcDate.format());
+    console.log("Expires At (UTC):", this.expiresAt);
   }
 
   next();
