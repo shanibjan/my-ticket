@@ -18,7 +18,7 @@ export async function GET() {
     const releasingMovies = movies.filter((obj1) =>
       show.some((obj2) => obj1._id.toString() === obj2.movie.toString())
     );
-    console.log(releasingMovies);
+    
     
     
     

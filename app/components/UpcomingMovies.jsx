@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bp from "../images/bp.jpg";
 import pk from "../images/peaky.jpg";
 import av from "../images/avesham.jpg";
