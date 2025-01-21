@@ -92,7 +92,7 @@ const ShowTime = ({ showDetailDate, showDetail, language }) => {
               <button
                 onClick={() => dateClick(date.date)}
                 key={i}
-                className={` text-center font-QMedium border-[1px] cursor-pointer border-[#417AB2] p-[1%] text-[15px] max-[1140px]:text-[10px] ${
+                className={` text-center max-[425px]:px-[5%] max-[425px]:py-[2%] rounded-md  font-QMedium border-[1px] cursor-pointer border-[#417AB2] p-[1%] text-[15px] max-[1140px]:text-[10px] ${
                   categoryClick === date.date ? "bg-[#417AB2] text-white" : ""
                 }`}
               >
@@ -107,7 +107,7 @@ const ShowTime = ({ showDetailDate, showDetail, language }) => {
 
       <div className="flex justify-between my-[50px] max-[620px]:my-[20px] max-[620px]:block items-center">
         <div>
-          <h1 className="font-QSemi max-[425px]:font-QMedium max-[425px]:text-[14px]">
+          <h1 className="font-QSemi max-[425px]:font-QMedium max-[425px]:text-[13px] max-[425px]:my-[15px]">
             ARC Abhilash Cinemas 4K, Mukkam
           </h1>
         </div>
@@ -129,7 +129,7 @@ const ShowTime = ({ showDetailDate, showDetail, language }) => {
               show.seats.length === 32 ? (
                 <span
                   key={i}
-                  className={`text-center border-[1px] text-gray-400 border-gray-200 py-[10%] px-[1%]  `}
+                  className={`text-center border-[1px] text-gray-400 border-gray-200 py-[10%] px-[1%] rounded-md  `}
                 >
                   <h1>{show.showsTime}</h1>
                 </span>
@@ -137,7 +137,7 @@ const ShowTime = ({ showDetailDate, showDetail, language }) => {
                 <span
                   onClick={() => selectShow(show.showsTime)}
                   key={i}
-                  className={`text-center border-[1px] text-[#21C179] border-gray-200 py-[10%] px-[1%] ${
+                  className={`text-center border-[1px] text-[#21C179] border-gray-200 py-[10%] rounded-md px-[1%] ${
                     show.seats.length > 16 && show.seats.length < 24
                       ? "text-[#FF9D00]"
                       : show.seats.length > 24 && show.seats.length < 32

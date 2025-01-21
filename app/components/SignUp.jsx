@@ -63,13 +63,13 @@ const Signup = ({ onDataSend }) => {
       </div>
       <div className="w-[50%] max-[620px]:w-full pt-[50px] pb-[10px] flex  justify-center text-center  ">
         <div className="w-full">
-          <h1 className="font-QBold text-[25px] mb-[30px]">Signup</h1>
+          <h1 className="font-QBold  max-[425px]:font-QSemi max-[425px]:text-[18px]  text-[25px] mb-[30px]">Signup</h1>
           {error && (
             <h1 className="mb-[10px] text-[15px] font-QRegular text-red-600">
               {error}
             </h1>
           )}
-          <div className="bg-gray-100  w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
+          <div className="bg-gray-100 rounded-md max-[425px]:text-[12px]  w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
             <FontAwesomeIcon className="text-gray-500" icon={faPhone} />
             <input
               value={phone}
@@ -93,7 +93,7 @@ const Signup = ({ onDataSend }) => {
               </motion.div>
             )}
           </AnimatePresence>
-          <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
+          <div className="bg-gray-100 rounded-md max-[425px]:text-[12px] w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular mb-[10px]">
             <FontAwesomeIcon className="text-gray-500" icon={faUser} />
             <input
               value={name}
@@ -103,7 +103,7 @@ const Signup = ({ onDataSend }) => {
               placeholder="Username"
             />
           </div>
-          <div className="bg-gray-100 w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular">
+          <div className="bg-gray-100 rounded-md max-[425px]:text-[12px] w-[70%] px-[3%] py-[2%] mx-auto flex justify-between items-center font-QRegular">
             <FontAwesomeIcon className="text-gray-500" icon={faLock} />
             <input
               value={password}
@@ -115,7 +115,7 @@ const Signup = ({ onDataSend }) => {
           </div>
           <h1
             onClick={Signup}
-            className=" cursor-pointer flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center mx-auto w-[50%] border-[#CE567F] mt-[30px]  px-[10%] py-[2%]"
+            className="max-[425px]:text-[11px] rounded-md cursor-pointer flex items-center font-QSemi text-[#CE567F] max-[715px]:text-[13px] border-[1px] justify-center mx-auto w-[50%] border-[#CE567F] mt-[30px]  px-[10%] py-[2%]"
           >
             Signup
           </h1>

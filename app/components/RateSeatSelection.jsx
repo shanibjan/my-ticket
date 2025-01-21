@@ -61,14 +61,14 @@ const RateSeatSelection = ({ seats, onDataChange }) => {
   return (
     <div className="flex w-full bg-white fixed bottom-0 justify-between px-[8%] py-[1%] border-t-[1px] border-gray-300 font-QRegular">
       <div>
-        <h1 className="font-QSemi">₹ {110 * seats.length}</h1>
-        <h2 className="text-gray-500 text-[14px]">
+        <h1 className="font-QSemi max-[425px]:text-[15px]">₹ {110 * seats.length}</h1>
+        <h2 className="text-gray-500 text-[14px] max-[425px]:text-[12px]">
           Tickets {seats.length} X 110
         </h2>
       </div>
       <button
         onClick={goTopayment}
-        className="bg-[#CE567F] px-[5%] text-white "
+        className="bg-[#CE567F] px-[5%] text-white max-[425px]:text-[13px] font-QMedium rounded-md "
       >
         Book Tickets
       </button>
@@ -77,7 +77,7 @@ const RateSeatSelection = ({ seats, onDataChange }) => {
           <div className="overlay">
             <div className=" overlay-content fixed w-full flex h-screen justify-center items-center ">
               <motion.div
-                className="w-[50%] max-[1000px]:w-[80%] max-[900px]:w-[90%] h-[500px] bg-white"
+                className="w-[50%] max-[1000px]:w-[80%] max-[900px]:w-[90%] h-[500px] max-[425px]:h-[440px] rounded-md bg-white"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

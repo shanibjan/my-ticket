@@ -142,10 +142,10 @@ const MoviesDetails = ({ movieDetails }) => {
   return (
     <div>
       {movieDetails ? (
-        <div className="pt-[100px] max-[530px]:px-[3%] px-[7%] border-b-[1px] border-b-gray-200">
-          <div className="flex justify-between py-[5%]">
-            <div className="leading-[44px] max-[425px]:leading-[30px] w-[30%] max-[1080px]:w-[45%] max-[780px]:w-[60%] max-[370px]:w-[50%]">
-              <h1 className="font-QBold capitalize text-[30px] max-[425px]:text-[20px] max-[425px]:font-QSemi">
+        <div className="pt-[100px] max-[425px]:pt-[65px] max-[530px]:px-[3%] px-[7%] border-b-[1px] border-b-gray-200">
+          <div className={`flex justify-between  py-[5%] ${movieDetails.status === "releasing"?"items-center":""}`}>
+            <div className="leading-[44px] max-[425px]:leading-[26px] w-[30%] max-[1080px]:w-[45%] max-[780px]:w-[60%] max-[370px]:w-[50%]">
+              <h1 className="font-QBold capitalize text-[30px] max-[425px]:text-[16px] max-[425px]:font-QSemi max-[425px]:mb-[10px]">
                 {movieDetails && movieDetails.movieName}
               </h1>
               {movieDetails.status === "releasing" ? (
@@ -157,7 +157,7 @@ const MoviesDetails = ({ movieDetails }) => {
                   <h3>{movieDetails && movieDetails.duration}</h3>
                 </div>
               ) : (
-                <div className="flex justify-between font-QRegular w-[60%] max-[425px]:text-[12px] text-gray-500 max-[550px]:w-[70%] max-[370px]:w-full">
+                <div className="flex justify-between font-QRegular w-[60%] max-[425px]:text-[12px] text-gray-500 max-[550px]:w-[70%] max-[425px]:w-[80%] max-[370px]:w-full">
                   <h3 className="capitalize">
                     Releasing on {movieDetails && movieDetails.release}{" "}
                   </h3>
@@ -174,13 +174,13 @@ const MoviesDetails = ({ movieDetails }) => {
               {movieDetails.status === "releasing" ? (
                 <button
                   onClick={() => setIsVideo(true)}
-                  className="mt-[30px] text-center font-QMedium cursor-pointer bg-[#417AB2] max-[425px]:text-[13px] px-[15%] text-[15px] text-white"
+                  className="mt-[30px] max-[425px]:mt-[25px] rounded-md text-center max-[425px]:py-[3%] font-QMedium cursor-pointer bg-[#417AB2] max-[425px]:text-[11px] px-[15%] text-[15px] text-white"
                 >
                   Watch Trailer
                 </button>
               ) : (
                 
-                <div className="flex items-center justify-between border-[1px] border-gray-300 px-[3%] py-[4%] max-[510px]:w-[167%] max-[425px]:mt-[80px] max-[425px]:text-[12px] max-[370px]:w-[200%]">
+                <div className="flex items-center rounded-md  justify-between border-[1px] border-gray-300 px-[3%] py-[4%] max-[510px]:w-[167%] max-[425px]:mt-[75px] max-[425px]:text-[11px] max-[370px]:w-[200%]">
                   <div className="flex items-center font-QMedium text-[#417AB2] w-[60%] ">
                     <FontAwesomeIcon className="mr-[3%]" icon={faThumbsUp} />
                     <h4 className="font-QMedium">
@@ -190,7 +190,7 @@ const MoviesDetails = ({ movieDetails }) => {
 
                   <button
                     onClick={handleInterest}
-                    className=" text-center font-QMedium cursor-pointer bg-[#417AB2] max-[425px]:text-[13px] px-[15%] text-[15px] text-white"
+                    className=" text-center max-[425px]:py-[7px] rounded-md font-QMedium cursor-pointer bg-[#417AB2] max-[425px]:text-[11px] px-[15%] text-[15px] text-white"
                   >
                     { userInterestedMovies.includes(movieDetails._id)
                       ? "Interested"
@@ -201,7 +201,7 @@ const MoviesDetails = ({ movieDetails }) => {
             </div>
             <div className="h-[250px] overflow-hidden w-[15%] max-[800px]:w-[30%] max-[370px]:w-[40%] max-[570px]:h-[180px] shadow-md">
               <img
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover rounded-md"
                 src={movieDetails && movieDetails.image}
                 alt=""
               />
