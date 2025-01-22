@@ -79,10 +79,10 @@ const router=useRouter()
           </ul>
         </div>
 
-        <div className="flex justify-start gap-x-8 max-[500px]:gap-x-[10px] overflow-x-scroll hide-scrollbar w-full flex-nowrap py-[2%]">
+        <div className="grid grid-cols-4 max-[800px]:grid-cols-3 max-[500px]:grid-cols-2 justify-start gap-8 max-[600px]:gap-[10px] overflow-x-scroll hide-scrollbar w-full flex-nowrap py-[2%]">
           {categoryClick === "All"
             ? moviesDetails.map((movie, index) => (
-                <div onClick={()=>navToMoviePage(movie)} key={index} className=" rounded-md relative  flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
+                <div onClick={()=>navToMoviePage(movie)} key={index} className=" rounded-md relative  shadow-lg">
                   {" "}
                   {/* Set fixed width */}
                   {loadClick===movie.movieName&&(<div className="absolute w-full z-10 h-[84%] flex items-center justify-center" >
@@ -106,7 +106,7 @@ const router=useRouter()
                 </div>
               ))
             : filteredMovies.map((movie, index) => (
-                <div onClick={()=>navToMoviePage(movie)} key={index} className=" rounded-md relative flex-shrink-0 w-[25%] max-[800px]:w-[35%] max-[500px]:w-[50%] shadow-lg">
+                <div onClick={()=>navToMoviePage(movie)} key={index} className=" rounded-md relative shadow-lg">
                   {" "}
                   {/* Set fixed width */}
                   {loadClick===movie.movieName&&(<div className="absolute w-full z-10 h-[84%] flex items-center justify-center" >

@@ -67,7 +67,7 @@ useEffect(()=>{
                   <div key={i}>
                     {getBookedSeats[0].seats.includes("A" + rows) ? (
                       <h1
-                        className={`flex justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
+                        className={`flex rounded-[4px] justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
                         key={i}
                       >
                         {rows}
@@ -95,7 +95,7 @@ useEffect(()=>{
                   <div key={i}>
                     {getBookedSeats[0].seats.includes("B" + rows) ? (
                       <h1
-                        className={`flex justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
+                        className={`flex rounded-[4px] justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
                         key={i}
                       >
                         {rows}
@@ -103,7 +103,7 @@ useEffect(()=>{
                     ) : (
                       <h1
                         onClick={() => toggleSeatSelection("B" + rows)}
-                        className={`flex rounded-[4px] justify-center items-center font-QMedium border-[1.5px] h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px] border-[#CE567F] text-[#CE567F] cursor-pointer ${
+                        className={`flex  rounded-[4px] justify-center items-center font-QMedium border-[1.5px] h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px] border-[#CE567F] text-[#CE567F] cursor-pointer ${
                           selectedSeats.includes("B" + rows)
                             ? "bg-[#CE567F] text-white"
                             : ""
@@ -124,7 +124,7 @@ useEffect(()=>{
                   <div key={i}>
                     {getBookedSeats[0].seats.includes("C" + rows) ? (
                       <h1
-                        className={`flex justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
+                        className={`flex rounded-[4px] justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
                         key={i}
                       >
                         {rows}
@@ -152,7 +152,7 @@ useEffect(()=>{
                   <div key={i}>
                     {getBookedSeats[0].seats.includes("D" + rows) ? (
                       <h1
-                        className={`flex justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
+                        className={`flex rounded-[4px] justify-center items-center font-QMedium border-[1.5px]  h-[28px] w-[28px] max-[425px]:border-[1px] max-[425px]:h-[26px] max-[425px]:w-[26px]  border-gray-300 text-gray-400 cursor-pointer bg-gray-300`}
                         key={i}
                       >
                         {rows}

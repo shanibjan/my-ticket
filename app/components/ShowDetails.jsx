@@ -105,7 +105,7 @@ return (
             show.seats.length === 32 ? (
               <span
                 key={i}
-                className={`flex-shrink-0 w-[12%] max-[425px]:text-[13px] max-[425px]:w-[33%] rounded-md text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[3%] text-gray-400 `}
+                className={`flex-shrink-0 w-[12%] max-[425px]:text-[13px] max-[425px]:w-[33%] rounded-md text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] max-[425px]:p-[3%] text-gray-400 `}
               >
                 <h1>{show.showsTime}</h1>
               </span>
@@ -113,7 +113,7 @@ return (
               <span
               onClick={()=>showTimeSelect(show.showsTime)}
                 key={i}
-                className={`flex-shrink-0 max-[425px]:text-[13px] w-[12%] max-[425px]:w-[33%] rounded-md text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[3%] ${showTimeBg===show.showsTime?"bg-[#CE567F] text-white":"text-[#21C179]"} ${
+                className={`flex-shrink-0 max-[425px]:text-[13px] w-[12%] max-[425px]:w-[33%] rounded-md text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] max-[425px]:p-[3%] ${showTimeBg===show.showsTime?"bg-[#CE567F] text-white":"text-[#21C179]"} ${
                   show.seats.length > 16 && show.seats.length < 24 && showTimeBg!==show.showsTime
                     ? "text-[#FF9D00]"
                     : show.seats.length > 24 && show.seats.length < 32 && showTimeBg!==show.showsTime
