@@ -10,7 +10,6 @@ const RateSeatSelection = ({ seats, onDataChange }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState();
   const [a, setA] = useState(false);
- 
 
   const fetchUser = async () => {
     try {
@@ -23,7 +22,9 @@ const RateSeatSelection = ({ seats, onDataChange }) => {
   }, [isLogin || isSignup]);
 
   const goTopayment = async () => {
-    if (user) {
+    let u = JSON.parse(localStorage.getItem("my-ticket-user"));
+
+    if (user || u) {
       setIsClick(true);
     } else {
       setIsLogin(true);
@@ -61,7 +62,9 @@ const RateSeatSelection = ({ seats, onDataChange }) => {
   return (
     <div className="flex w-full bg-white fixed bottom-0 justify-between px-[8%] py-[1%] border-t-[1px] border-gray-300 font-QRegular">
       <div>
-        <h1 className="font-QMedium max-[425px]:text-[15px]">₹ {110 * seats.length}</h1>
+        <h1 className="font-QMedium max-[425px]:text-[15px]">
+          ₹ {110 * seats.length}
+        </h1>
         <h2 className="text-gray-500 text-[14px] max-[425px]:text-[12px]">
           Tickets {seats.length} X 110
         </h2>
