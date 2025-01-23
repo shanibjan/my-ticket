@@ -18,7 +18,7 @@ module.exports = {
       QBold: ["QBold"],
       QMedium: ["QMedium"],
       QLight: ["QLight"],
-      QSemi:["QSemi"]
+      
     },
   },
   plugins: [],

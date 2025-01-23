@@ -1,11 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import bp from "../images/bp.jpg";
-import pk from "../images/peaky.jpg";
-import av from "../images/avesham.jpg";
-import t from "../images/Turbo.jpg";
-import p from "../images/push.jpg";
-import mb from "../images/mb.jpg";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
@@ -51,7 +46,7 @@ return (
   <div>
     <div className="mx-[7%]  max-[530px]:mx-[3%] mb-[4%] mt-[10%]">
       <div className="my-[2%] flex justify-between items-center">
-        <h1 className="font-QBold max-[425px]:font-QSemi max-[425px]:text-[15px] text-[25px] max-[500px]:text-[20px] ">
+        <h1 className="font-QBold max-[425px]:font-QMedium max-[425px]:text-[15px] text-[25px] max-[500px]:text-[20px] ">
           Upcoming Movies
         </h1>
         <div className="dropdown hidden max-[830px]:block">
@@ -86,7 +81,7 @@ return (
               <li
                 onClick={() => setCategoryClick(c)}
                 key={i}
-                className={`w-[15%] rounded-md text-center font-QMedium border-[1px] cursor-pointer border-[#417AB2] py-[1%] text-[15px] max-[1140px]:text-[10px] ${
+                className={`w-[15%] rounded-md text-center font-QRegular border-[1px] cursor-pointer border-[#417AB2] py-[1%] text-[15px] max-[1140px]:text-[10px] ${
                   categoryClick === c ? "bg-[#417AB2] text-white" : ""
                 }`}
               >
@@ -120,10 +115,10 @@ return (
                   alt=""
                 />
                  <div className="p-[3%]">
-                  <h1 className="font-QSemi capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
+                  <h1 className="font-QMedium capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
                     {movie.movieName}
                   </h1>
-                  <h2 className="font-QRegular capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
+                  <h2 className="font-QRegular text-gray-500 capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
                     {movie.language}
                   </h2>
                 </div>
@@ -150,10 +145,10 @@ return (
                   alt=""
                 />
                  <div className="p-[3%]">
-                  <h1 className="font-QSemi capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
+                  <h1 className="font-QMedium capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
                     {movie.movieName}
                   </h1>
-                  <h2 className="font-QRegular capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
+                  <h2 className="font-QRegular text-gray-500 capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
                     {movie.language}
                   </h2>
                 </div>

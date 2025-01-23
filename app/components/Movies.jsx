@@ -43,14 +43,14 @@ const router=useRouter()
     <div>
       <div className="mx-[7%]  max-[530px]:mx-[3%] mb-[4%] mt-[10%]">
         <div className="my-[2%] flex justify-between items-center">
-          <h1 className="font-QBold max-[425px]:font-QSemi max-[425px]:text-[15px] text-[25px] max-[500px]:text-[20px] ">Popular Movies</h1>
+          <h1 className="font-QBold max-[425px]:font-QMedium max-[425px]:text-[15px] text-[25px] max-[500px]:text-[20px] ">Popular Movies</h1>
           <div className="dropdown hidden max-[830px]:block">
             <div className="flex justify-between items-start gap-x-[10px]">
               <h1 onClick={()=>setIsHidden(false)} className="font-QMedium max-[425px]:text-[12px] " >{categoryClick}</h1>
               <FontAwesomeIcon className="max-[425px]:w-[10px]" icon={faChevronDown} />
             </div>
 
-            <ul className={`dropdown-menu font-QMedium  text-[#244262] leading-[35px] max-[1000px]:px-[20px] left-[-170px] max-[1000px]:left-[-67px] max-[530px]:left-[-100px] max-[550px]:text-[11px]  max-[1000px]:w-[150px] ${isHidden?"hidden":""} `}>
+            <ul className={`dropdown-menu font-QRegular  text-[#244262] leading-[35px] max-[1000px]:px-[20px] left-[-170px] max-[1000px]:left-[-67px] max-[530px]:left-[-100px] max-[550px]:text-[11px]  max-[1000px]:w-[150px] ${isHidden?"hidden":""} `}>
               {categories.map((c, i) => {
                 return (
                   <li onClick={() => {setCategoryClick(c)
@@ -68,7 +68,7 @@ const router=useRouter()
                 <li
                   onClick={() => setCategoryClick(c)}
                   key={i}
-                  className={`w-[15%] rounded-md text-center font-QMedium border-[1px] cursor-pointer border-[#CE567F] py-[1%] text-[15px] max-[1140px]:text-[10px] ${
+                  className={`w-[15%] rounded-md text-center font-QRegular border-[1px] cursor-pointer border-[#CE567F] py-[1%] text-[15px] max-[1140px]:text-[10px] ${
                     categoryClick === c ? "bg-[#CE567F] text-white" : ""
                   }`}
                 >
@@ -96,10 +96,10 @@ const router=useRouter()
                     alt=""
                   />
                   <div className="p-[3%]">
-                    <h1 className="font-QSemi capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
+                    <h1 className="font-QMedium capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
                       {movie.movieName}
                     </h1>
-                    <h2 className="font-QRegular capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
+                    <h2 className="font-QRegular text-gray-500 capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
                       {movie.language}
                     </h2>
                   </div>
@@ -118,10 +118,10 @@ const router=useRouter()
                     alt=""
                   />
                   <div className="p-[3%]">
-                  <h1 className="font-QSemi capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
+                  <h1 className="font-QMedium capitalize text-[18px] max-[930px]:text-[14px] max-[425px]:text-[13px] my-[1%]">
                       {movie.movieName}
                     </h1>
-                    <h2 className="font-QRegular capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
+                    <h2 className="font-QRegular text-gray-500 capitalize text-[14px] max-[930px]:text-[10px] max-[425px]:text-[9px]">
                       {movie.language}
                     </h2>
                   </div>

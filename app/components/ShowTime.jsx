@@ -107,11 +107,11 @@ const ShowTime = ({ showDetailDate, showDetail, language }) => {
 
       <div className="flex justify-between my-[50px] max-[620px]:my-[20px] max-[620px]:block items-center">
         <div>
-          <h1 className="font-QSemi max-[425px]:font-QMedium max-[425px]:text-[13px] max-[425px]:my-[15px]">
+          <h1 className="font-QMedium max-[425px]:font-QMedium max-[425px]:text-[13px] max-[425px]:my-[15px]">
             ARC Abhilash Cinemas 4K, Mukkam
           </h1>
         </div>
-        <div className="grid grid-cols-6 w-[70%] gap-[25px] max-[800px]:gap-[10px] font-QSemi cursor-pointer max-[1170px]:grid-cols-5 max-[870px]:w-[90%] max-[620px]:w-full max-[870px]:grid-cols-4 max-[800px]:grid-cols-3">
+        <div className="grid grid-cols-6 w-[70%] gap-[25px] max-[800px]:gap-[10px] font-QMedium cursor-pointer max-[1170px]:grid-cols-5 max-[870px]:w-[90%] max-[620px]:w-full max-[870px]:grid-cols-4 max-[800px]:grid-cols-3">
           {/* {filteredShowDetail &&
             filteredShowDetail.map((show, i) => {
               return (

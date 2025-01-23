@@ -79,7 +79,7 @@ return (
   <div className="pt-[100px] max-[425px]:pt-[65px] px-[7%] max-[530px]:px-[3%] border-b-[1px] border-b-gray-200 ">
     <div className="py-[2%]" >
       <div className="text-center ">
-        <h1 className="font-QSemi capitalize text-[20px] max-[425px]:text-[15px]">
+        <h1 className="font-QMedium capitalize text-[20px] max-[425px]:text-[15px]">
           {movie} • {lang}
         </h1>
         <div className="flex justify-center font-QRegular text-[15px] max-[425px]:text-[11px] max-[425px]:mb-[25px] text-gray-500 mb-[50px]">
@@ -88,11 +88,11 @@ return (
       </div>
       <div className=" justify-between items-center  ">
         <div className="flex  items-center w-full" >
-          <div className="w-[11%] max-[620px]:w-[20%] font-QSemi max-[425px]:text-[12px] " >
+          <div className="w-[11%] max-[620px]:w-[20%] font-QMedium max-[425px]:text-[12px] " >
             <h1 className="text-gray-400" >{dayOfWeek}</h1>
             <h1>{date}</h1>
           </div>
-          <div className="flex w-[90%] items-center gap-x-[25px] max-[425px]:gap-x-[15px] overflow-x-scroll font-QSemi cursor-pointer ml-[4%] hide-scrollbar">
+          <div className="flex w-[90%] items-center gap-x-[25px] max-[425px]:gap-x-[15px] overflow-x-scroll font-QMedium cursor-pointer ml-[4%] hide-scrollbar">
             {/* {show.map((show,i)=>{
                 return(
                   <span onClick={()=>showTimeSelect(show.showsTime)} key={i}  className={` flex-shrink-0 w-[12%] max-[425px]:w-[30%] text-center border-[1px]  border-gray-200 max-[905px]:w-[17%] max-[630px]:w-[25%] p-[1%] ${showTimeBg===show.showsTime?"bg-[#CE567F] text-white":"text-[#21C179]"}`}>

@@ -40,22 +40,22 @@ useEffect(()=>{
     <div>
       <div className="px-[7%] max-[530px]:px-[3%]">
         <div>
-          <h1 className="text-center font-QSemi max-[425px]:text-[12px] max-[425px]:my-[10px]">
+          <h1 className="text-center font-QMedium max-[425px]:text-[12px] max-[425px]:my-[10px]">
             EXECUTIVE : ₹ 110
           </h1>
         </div>
         <div className="flex justify-evenly py-[80px] max-[425px]:py-[30px] overflow-x-scroll">
           <div className=" flex-shrink-0 mr-[3%] grid gap-y-[15px] h-[165px] max-[425px]:h-[131px] max-[425px]:gap-y-[9px]">
-            <h1 className="font-QSemi h-[28px] flex items-center  mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
+            <h1 className="font-QMedium h-[28px] flex items-center  mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
               A
             </h1>
-            <h1 className="font-QSemi h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
+            <h1 className="font-QMedium h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
               B
             </h1>
-            <h1 className="font-QSemi h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
+            <h1 className="font-QMedium h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
               C
             </h1>
-            <h1 className="font-QSemi h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
+            <h1 className="font-QMedium h-[28px] flex items-center mr-[2%] text-[20px] max-[425px]:text-[15px] max-[425px]:h-[26px] text-gray-500">
               D
             </h1>
           </div>

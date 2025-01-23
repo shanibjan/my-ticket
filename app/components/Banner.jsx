@@ -12,7 +12,7 @@ const Banner = ({}) => {
         className="h-[500px] max-[620px]:h-[300px] max-[425px]:h-[210px] bg-cover bg-center flex justify-center items-center"
       >
         <div className="text-center" >
-          <h1 className="text-white text-4xl max-[425px]:text-[25px] font-QSemi">
+          <h1 className="text-white text-4xl max-[425px]:text-[25px] font-QBold">
             Your favorite movies.Explained
           </h1>
           <h3 className="text-white font-QRegular mt-[15px] max-[425px]:text-[12px] " >Figure out what happened.Then find out why.</h3>

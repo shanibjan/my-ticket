@@ -145,11 +145,11 @@ const MoviesDetails = ({ movieDetails }) => {
         <div className="pt-[100px] max-[425px]:pt-[65px] max-[530px]:px-[3%] px-[7%] border-b-[1px] border-b-gray-200">
           <div className={`flex justify-between  py-[5%] ${movieDetails.status === "releasing"?"items-center":""}`}>
             <div className="leading-[44px] max-[425px]:leading-[26px] w-[30%] max-[1080px]:w-[45%] max-[780px]:w-[60%] max-[370px]:w-[50%]">
-              <h1 className="font-QBold capitalize text-[30px] max-[425px]:text-[16px] max-[425px]:font-QSemi max-[425px]:mb-[10px]">
+              <h1 className="font-QBold capitalize text-[30px] max-[425px]:text-[16px] max-[425px]:font-QMedium max-[425px]:mb-[10px]">
                 {movieDetails && movieDetails.movieName}
               </h1>
               {movieDetails.status === "releasing" ? (
-                <div className="flex justify-between font-QRegular w-[50%] max-[425px]:text-[12px] text-gray-500 max-[550px]:w-[70%] max-[370px]:w-full">
+                <div className="flex justify-between font-QRegular w-[50%] max-[425px]:text-[12px] text-gray-500 max-[550px]:w-[70%] max-[425px]:w-[50%]">
                   <h3 className="capitalize">
                     {movieDetails && movieDetails.certificate}{" "}
                   </h3>

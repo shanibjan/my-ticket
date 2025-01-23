@@ -6,27 +6,23 @@
 @font-face {
   font-family: "QLight";
 
-  src: url("./fonts/Poppins-Light.ttf");
+  src: url("./fonts/Rubik-Light.ttf");
 }
 @font-face {
   font-family: "QRegular";
 
-  src: url("./fonts/Poppins-Regular.ttf");
+  src: url("./fonts/Rubik-Regular.ttf");
 }
 @font-face {
   font-family: "QMedium";
 
-  src: url("./fonts/Poppins-Medium.ttf");
+  src: url("./fonts/Rubik-Medium.ttf");
 }
-@font-face {
-  font-family: "QSemi";
 
-  src: url("./fonts/Poppins-SemiBold.ttf");
-}
 @font-face {
   font-family: "QBold";
 
-  src: url("./fonts/Poppins-Bold.ttf");
+  src: url("./fonts/Rubik-Bold.ttf");
 }
 :root {
   --background: #ffffff;
